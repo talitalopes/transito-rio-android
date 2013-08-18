@@ -1,10 +1,13 @@
-package com.uaker.apps.transitorio;
+package com.uaker.apps.transitorio.activities;
 
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
+import com.uaker.apps.transitorio.R;
+import com.uaker.apps.transitorio.R.layout;
+import com.uaker.apps.transitorio.R.menu;
 
 public class MainActivity extends SherlockActivity {
 
