@@ -2,7 +2,49 @@
 <resources>
 
     <string name="app_name">Transito Rio</string>
-    <string name="action_settings">Settings</string>
+    <string name="ADMOB_ID">a1520ae27f296d3</string>
+    <string name="menu_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_news">NewsActivity</string>
+    <string name="title_activity_video">VideoActivity</string>
+    <string name="example_news_title">Depois do protesto, manhã de limpeza e policiamento reforçado no Palácio Guanabara</string>
+    <string name="example_published_at">10/09/13 10:13</string>
+
+    <!-- LIST -->
+    <string name="empty_list"><![CDATA[Não há informações disponíveis nesse momento.]]></string>
+
+    <!-- LOADING -->
+    <string name="loading"><![CDATA[Carregando...]]></string>
+
+    <!-- INTERNET FAILURE -->
+    <string name="internet_failure">Verique sua conexão de internet ou tente novamente mais tarde.</string>
+    <string name="internet_failure_try_again">Tentar Novamente</string>
+
+    <!-- MENU -->
+    <string name="menu_share">compartilhar</string>
+    <string name="menu_refresh_list">atualizar</string>
+    <string name="menu_telephone_call">ligar</string>
+    <string name="description_image_blur_fragment">blur por cima do conteudo</string>
+    <string name="title_activity_settings">Configurações</string>
+
+    <!-- RODOVIAS -->
+    <string name="ponte">Ponte</string>
+    <string name="novadutra">NovaDutra</string>
+    <string name="rodoviadoslagos">ViaLagos</string>
+    <string name="rodonorte">RodoNorte</string>
+    <string name="autoban">AutoBAn</string>
+    <string name="viaoeste">ViaOeste</string>
+    <string name="rodoaneloeste">RodoAnel</string>
+    <string name="spvias">SPVias</string>
+
+    <!-- RODOVIAS TELS -->
+    <string name="ponte_tel">0800 022 9333</string>
+    <string name="novadutra_tel">0800 017 3536</string>
+    <string name="rodoviadoslagos_tel">0800 702 0124</string>
+    <string name="rodonorte_tel">0800 42 1500</string>
+    <string name="autoban_tel">0800 055 55 50</string>
+    <string name="viaoeste_tel">0800 701 5555</string>
+    <string name="rodoaneloeste_tel">0800 773 6699</string>
+    <string name="spvias_tel">0800 703 50 30</string>
 
 </resources>
