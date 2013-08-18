@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    
+    <color name="background_default">#ececec</color>
+    <color name="background_image_caption">#1A1A1A</color>
+    
+    <!-- MENU -->
+    <color name="menu_opened">#C8FFFFFF</color>
+    
+    <!-- SPLASH -->
+    <color name="background_splash">#FFDB2F</color>
+    <color name="background_splash_transparent">#FFFFDB2F</color>
+    
+    <!-- CORES PADROES -->
+    <color name="home">#212121</color>
+    <color name="home_second">#000000</color>
+    
+    <!-- BOX -->
+    <color name="box_green">#7ac40b</color>
+    <color name="box_green_second">#4a7c00</color>
+    <color name="box_orange">#ff7200</color>
+    <color name="box_orange_second">#ad3a00</color>
+    <color name="box_yellow">#ecb010</color>
+    <color name="box_yellow_second">#a17b00</color>
+    <color name="box_red">#e40000</color>
+    <color name="box_red_second">#9c0000</color>
+    
+    <color name="top_second">#d7d7d7</color>
+    <color name="top_text_second">#676767</color>
+    
+</resources>
