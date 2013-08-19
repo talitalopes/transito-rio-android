@@ -1,4 +1,4 @@
-package com.uauker.apps.transitorio.models;
+package com.uauker.apps.transitorio.models.ccr;
 
 import java.io.Serializable;
 
