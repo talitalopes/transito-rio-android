@@ -9,6 +9,9 @@
     <string name="title_activity_video">VideoActivity</string>
     <string name="example_news_title">Depois do protesto, manhã de limpeza e policiamento reforçado no Palácio Guanabara</string>
     <string name="example_published_at">10/09/13 10:13</string>
+    <string name="example_tweet_title">Centro de Operações</string>
+    <string name="example_tweet_text">Acidente desfeito na segunda galeria do tunel Rebouças, sentido Praça da Bandeira. Trânsito segue intenso no local.</string>
+    <string name="example_tweet_published_at">3m</string>
 
     <!-- LIST -->
     <string name="empty_list"><![CDATA[Não há informações disponíveis nesse momento.]]></string>
