@@ -2,9 +2,10 @@
 <resources>
 
     <array name="menu">
-        <item>Ponte</item>
-        <item>NovaDutra</item>
-        <item>ViaLagos</item>
+        <item>Trânsito</item>
+        <item>Ponte Rio Niterói</item>
+        <item>Nova Dutra</item>
+        <item>Via Lagos</item>
     </array>
 
 </resources>

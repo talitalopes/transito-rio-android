@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Transito Rio</string>
+    <string name="app_name">Trânsito Rio</string>
     <string name="ADMOB_ID">a1520ae27f296d3</string>
-    <string name="menu_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="traffic">Trânsito</string>
     <string name="title_activity_news">NewsActivity</string>
     <string name="title_activity_video">VideoActivity</string>
     <string name="example_news_title">Depois do protesto, manhã de limpeza e policiamento reforçado no Palácio Guanabara</string>
@@ -28,9 +28,9 @@
     <string name="title_activity_settings">Configurações</string>
 
     <!-- RODOVIAS -->
-    <string name="ponte">Ponte</string>
-    <string name="novadutra">NovaDutra</string>
-    <string name="rodoviadoslagos">ViaLagos</string>
+    <string name="ponte">Ponte Rio Niterói</string>
+    <string name="novadutra">Nova Dutra</string>
+    <string name="rodoviadoslagos">Via Lagos</string>
     <string name="rodonorte">RodoNorte</string>
     <string name="autoban">AutoBAn</string>
     <string name="viaoeste">ViaOeste</string>

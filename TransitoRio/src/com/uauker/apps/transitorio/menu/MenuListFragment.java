@@ -1,7 +1,9 @@
 package com.uauker.apps.transitorio.menu;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -17,19 +19,21 @@ import android.widget.TextView;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.activities.MainActivity;
 import com.uauker.apps.transitorio.fragments.RodoviaFragment;
+import com.uauker.apps.transitorio.fragments.TwitterFragment;
 import com.uauker.apps.transitorio.helpers.SharedPreferencesHelper;
 
+@SuppressLint("DefaultLocale")
 public class MenuListFragment extends ListFragment {
 
 	public enum Source {
-		PONTE, NOVADUTRA, RODOVIADOSLAGOS, RODONORTE, AUTOBAN, VIAOESTE, RODOANELOESTE, SPVIAS
+		TRANSITO, PONTE, NOVADUTRA, RODOVIADOSLAGOS, RODONORTE, AUTOBAN, VIAOESTE, RODOANELOESTE, SPVIAS
 	};
 
 	private Activity ownerActivity;
 
 	public final static String SELECTED_MENU_ROW = "selectedMenuRow";
 
-	RodoviaMenuAdapter adapter;
+	MenuAdapter adapter;
 
 	SharedPreferencesHelper sharedPreferences;
 
@@ -58,16 +62,16 @@ public class MenuListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		adapter = new RodoviaMenuAdapter(ownerActivity);
+		adapter = new MenuAdapter(ownerActivity);
 
-		for (SourceItemMenu item : getRodoviaFromMenu()) {
+		for (SourceItemMenu item : getItemFromMenu()) {
 			adapter.add(item);
 		}
 
 		setListAdapter(adapter);
 	}
 
-	private List<SourceItemMenu> getRodoviaFromMenu() {
+	private List<SourceItemMenu> getItemFromMenu() {
 		for (String item : getResources().getStringArray(R.array.menu)) {
 			rodovias.add(new SourceItemMenu(item, R.color.home,
 					R.color.home_second));
@@ -97,15 +101,15 @@ public class MenuListFragment extends ListFragment {
 		}
 	}
 
-	public class RodoviaMenuAdapter extends ArrayAdapter<SourceItemMenu> {
+	public class MenuAdapter extends ArrayAdapter<SourceItemMenu> {
 
-		public RodoviaMenuAdapter(Context context) {
+		public MenuAdapter(Context context) {
 			super(context, 0);
 		}
 
 		public View getView(final int position, View convertView,
 				ViewGroup parent) {
-			final SourceItemMenu item = getItem(position);
+			final SourceItemMenu itemMenu = getItem(position);
 
 			if (convertView == null) {
 				convertView = LayoutInflater.from(getContext()).inflate(
@@ -116,17 +120,17 @@ public class MenuListFragment extends ListFragment {
 					.getString(SELECTED_MENU_ROW);
 
 			TextView indicator = (TextView) convertView
-					.findViewById(R.id.row_rodovia_indicator);
-			indicator.setBackgroundColor(item.color);
+					.findViewById(R.id.menu_indicator);
+			indicator.setBackgroundColor(itemMenu.color);
 
 			final TextView title = (TextView) convertView
-					.findViewById(R.id.row_title);
-			title.setText(item.name);
+					.findViewById(R.id.menu_title);
+			title.setText(itemMenu.name);
 
 			if (String.valueOf(position).equalsIgnoreCase(positionShared)) {
-				indicator.setBackgroundColor(item.secondColor);
+				indicator.setBackgroundColor(itemMenu.secondColor);
 
-				convertView.setBackgroundColor(item.color);
+				convertView.setBackgroundColor(itemMenu.color);
 				title.setTextColor(getResources().getColor(R.color.white));
 			} else {
 				convertView.setBackgroundColor(ownerActivity.getResources()
@@ -146,9 +150,14 @@ public class MenuListFragment extends ListFragment {
 					sharedPreferences.setString(SELECTED_MENU_ROW,
 							String.valueOf(position));
 
-					ColorDrawable rodoviaColor = new ColorDrawable(item.color);
+					ColorDrawable rodoviaColor = new ColorDrawable(
+							itemMenu.color);
 
 					newContent = new RodoviaFragment(slug, rodoviaColor);
+
+					if (itemRodovia == Source.TRANSITO) {
+						newContent = new TwitterFragment();
+					}
 
 					if (newContent != null) {
 						switchFragment(newContent);
