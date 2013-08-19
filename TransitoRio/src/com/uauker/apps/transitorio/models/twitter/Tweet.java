@@ -14,4 +14,9 @@ public class Tweet implements Serializable {
 	public Date publishDate;
 	public String text;
 
+	public String publishedAt() {
+		String publishedAt = publishDate.toString();
+		return publishedAt;
+	}
+	
 }
