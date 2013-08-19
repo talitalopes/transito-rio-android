@@ -4,17 +4,25 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="Theme.Sherlock.Light.DarkActionBar">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    <style name="AppBaseTheme" parent="Theme.Sherlock.Light">
+        <item name="actionBarStyle">@style/Custom.ActionBar</item>
+    </style>
+
+    <style name="Custom.ActionBar" parent="Widget.Sherlock.ActionBar">
+        <item name="background">@color/background_splash_transparent</item>
+        <item name="android:background">@color/background_splash_transparent</item>
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <style name="AppTheme" parent="AppBaseTheme"></style>
+
+    <style name="AppThemeWithMenu" parent="AppBaseTheme"></style>
+
+    <!-- Splash -->
+    <style name="SplashPage" parent="@android:Theme.Black.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@color/background_splash</item>
+        <item name="android:colorBackground">@color/background_splash</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
 </resources>
