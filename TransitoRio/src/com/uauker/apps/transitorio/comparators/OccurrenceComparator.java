@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import android.annotation.SuppressLint;
 
-import com.uauker.apps.transitorio.models.Occurrence;
+import com.uauker.apps.transitorio.models.ccr.Occurrence;
 
 public class OccurrenceComparator implements Comparator<Occurrence> {
 

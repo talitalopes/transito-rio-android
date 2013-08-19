@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.comparators.OccurrenceComparator;
-import com.uauker.apps.transitorio.models.Occurrence;
+import com.uauker.apps.transitorio.models.ccr.Occurrence;
 
 @SuppressLint("DefaultLocale")
 public class RodoviaAdapter extends ArrayAdapter<Occurrence> {

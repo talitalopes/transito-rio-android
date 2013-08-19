@@ -38,7 +38,7 @@ import com.uauker.apps.transitorio.helpers.ConfigHelper;
 import com.uauker.apps.transitorio.helpers.RodoviaHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
-import com.uauker.apps.transitorio.models.Occurrence;
+import com.uauker.apps.transitorio.models.ccr.Occurrence;
 
 @SuppressLint("ValidFragment")
 public class RodoviaFragment extends SherlockFragment implements
