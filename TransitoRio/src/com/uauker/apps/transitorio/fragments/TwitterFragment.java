@@ -37,14 +37,14 @@ import com.uauker.apps.transitorio.helpers.ConfigHelper;
 import com.uauker.apps.transitorio.helpers.RodoviaHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
-import com.uauker.apps.transitorio.models.Occurrence;
+import com.uauker.apps.transitorio.models.ccr.Occurrence;
 
 public class TwitterFragment extends SherlockFragment implements
 		OnClickToTryAgain, OnOpenListener, OnCloseListener {
 
 	ImageView shadowView;
 
-	ListView occurrencesListView;
+	ListView twitterListView;
 
 	ViewStub loadingViewStub;
 	ViewStub internetFailureViewStub;
@@ -91,13 +91,13 @@ public class TwitterFragment extends SherlockFragment implements
 				.inflate();
 		tryAgainView.setOnClickToTryAgain(this);
 
-		this.occurrencesListView = (ListView) contentView
+		this.twitterListView = (ListView) contentView
 				.findViewById(R.id.twitter_listview);
 
 		this.emptyView = contentView
 				.findViewById(R.id.twitter_list_empty_message);
 
-		loadRodovias();
+		loadTweets();
 
 		if (contentView != null) {
 			BannerHelper.setUpAdmob(contentView);
@@ -116,7 +116,7 @@ public class TwitterFragment extends SherlockFragment implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_refresh:
-			loadRodovias();
+			loadTweets();
 			return true;
 
 		case R.id.menu_telephone:
@@ -148,7 +148,7 @@ public class TwitterFragment extends SherlockFragment implements
 
 	@Override
 	public void tryAgain() {
-		loadRodovias();
+		loadTweets();
 	}
 
 	private void calling() {
@@ -161,10 +161,10 @@ public class TwitterFragment extends SherlockFragment implements
 		ownerActivity.startActivity(intent);
 	}
 
-	private void loadRodovias() {
+	private void loadTweets() {
 		String url = ConfigHelper.urlFormat(slugTwitter);
 
-		client.get(url, new TwitterAsyncTask());
+//		client.get(url, new TwitterAsyncTask());
 	}
 
 	class TwitterAsyncTask extends AsyncHttpResponseHandler {
@@ -176,7 +176,7 @@ public class TwitterFragment extends SherlockFragment implements
 			TwitterFragment.this.loadingViewStub.setVisibility(View.VISIBLE);
 			TwitterFragment.this.internetFailureViewStub
 					.setVisibility(View.GONE);
-			TwitterFragment.this.occurrencesListView.setVisibility(View.GONE);
+			TwitterFragment.this.twitterListView.setVisibility(View.GONE);
 		}
 
 		@Override
@@ -186,37 +186,38 @@ public class TwitterFragment extends SherlockFragment implements
 			TwitterFragment.this.loadingViewStub.setVisibility(View.GONE);
 			TwitterFragment.this.internetFailureViewStub
 					.setVisibility(View.VISIBLE);
-			TwitterFragment.this.occurrencesListView.setVisibility(View.GONE);
+			TwitterFragment.this.twitterListView.setVisibility(View.GONE);
 		}
 
 		@Override
 		public void onSuccess(String result) {
 			super.onSuccess(result);
 
-			try {
-				Gson gson = new Gson();
-				JsonArray content = new JsonParser().parse(result)
-						.getAsJsonObject().getAsJsonArray("Occurences");
-
-				Iterator<JsonElement> it = content.iterator();
-
-				while (it.hasNext()) {
-					JsonElement occurrenceJson = it.next();
-					Occurrence occurrence = gson.fromJson(occurrenceJson,
-							Occurrence.class);
-					occurrences.add(occurrence);
-				}
-
-				TwitterFragment.this.loadingViewStub.setVisibility(View.GONE);
-				TwitterFragment.this.internetFailureViewStub
-						.setVisibility(View.GONE);
-				TwitterFragment.this.occurrencesListView
-						.setVisibility(View.VISIBLE);
-
-				setupListView();
-			} catch (Exception e) {
-				onFailure(e, "");
-			}
+			// TODO: Criar metodo para recuperar os tweets de transito
+//			try {
+//				Gson gson = new Gson();
+//				JsonArray content = new JsonParser().parse(result)
+//						.getAsJsonObject().getAsJsonArray("Occurences");
+//
+//				Iterator<JsonElement> it = content.iterator();
+//
+//				while (it.hasNext()) {
+//					JsonElement occurrenceJson = it.next();
+//					Occurrence occurrence = gson.fromJson(occurrenceJson,
+//							Occurrence.class);
+//					occurrences.add(occurrence);
+//				}
+//
+//				TwitterFragment.this.loadingViewStub.setVisibility(View.GONE);
+//				TwitterFragment.this.internetFailureViewStub
+//						.setVisibility(View.GONE);
+//				TwitterFragment.this.twitterListView
+//						.setVisibility(View.VISIBLE);
+//
+//				setupListView();
+//			} catch (Exception e) {
+//				onFailure(e, "");
+//			}
 		}
 
 		@Override
@@ -226,7 +227,7 @@ public class TwitterFragment extends SherlockFragment implements
 			if (TwitterFragment.this.occurrences.size() == 0
 					&& TwitterFragment.this.internetFailureViewStub
 							.getVisibility() != View.VISIBLE) {
-				TwitterFragment.this.occurrencesListView
+				TwitterFragment.this.twitterListView
 						.setEmptyView(TwitterFragment.this.emptyView);
 			}
 		}
@@ -235,7 +236,7 @@ public class TwitterFragment extends SherlockFragment implements
 			RodoviaAdapter occurrenceAdapter = new RodoviaAdapter(
 					TwitterFragment.this.ownerActivity,
 					R.layout.adapter_rodovia, occurrences);
-			occurrencesListView.setAdapter(occurrenceAdapter);
+			twitterListView.setAdapter(occurrenceAdapter);
 		}
 	}
 
