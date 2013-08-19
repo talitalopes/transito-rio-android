@@ -1,0 +1,139 @@
+{
+    "util": [
+    	{
+    		"label": "Ambulância - SAMU",
+    		"tels": [
+    			"192"
+    		]
+    	},    
+    	{
+    		"label": "Autoestrada Lagoa-Barra",
+    		"tels": [
+    			"0800-282-8664",
+    			"3852-0382"
+    		]
+    	},
+    	{
+    		"label": "Autopista Fluminense",
+    		"tels": [
+    			"0800-282-0101"
+    		]
+    	},
+    	{
+    		"label": "Avenida Brasil",
+    		"tels": [
+    			"0800-282-8664",
+    			"3852-0382"
+    		]
+    	},
+    	{
+    		"label": "Concer",
+    		"tels": [
+    			"0800-282-0040"
+    		]
+    	},
+    	{
+    		"label": "Corpo de Bombeiros",
+    		"tels": [
+    			"193"
+    		]
+    	},
+    	{
+    		"label": "Defesa Civil",
+    		"tels": [
+    			"199"
+    		]
+    	},
+    	{
+    		"label": "Disque Denúncia",
+    		"tels": [
+    			"2253-1177"
+    		]
+    	},    	
+    	{
+    		"label": "Linha Amarela",
+    		"tels": [
+    			"0800-024-2355"
+    		]
+    	},
+    	{
+    		"label": "Linha Vermelha",
+    		"tels": [
+    			"0800-282-8664"
+    		]
+    	},
+    	{
+    		"label": "Mergulhão da Praça XV",
+    		"tels": [
+    			"0800-282-8664",
+    			"3852-0382"
+    		]
+    	},
+    	{
+    		"label": "Polícia Civil",
+    		"tels": [
+    			"197"
+    		]
+    	},
+    	{
+    		"label": "Polícia Federal",
+    		"tels": [
+    			"194"
+    		]
+    	},
+    	{
+    		"label": "Polícia Militar",
+    		"tels": [
+    			"190"
+    		]
+    	},
+    	{
+    		"label": "Ponte Rio-Niterói",
+    		"tels": [
+    			"2620-9333",
+    			"2621-6351",
+                "0800-022-9333"
+    		]
+    	},
+        {
+             "label": "Rota 116",
+             "tels": [
+                  "0800-282-0116"
+            ]
+        },
+        {
+             "label": "SuperVia",
+             "tels": [
+                "0800-726-9494"
+            ]
+        },
+    	{
+    		"label": "Túnel Rebouças",
+    		"tels": [
+    			"0800-282-8664",
+    			"3852-0382"
+    		]
+    	},
+    	{
+    		"label": "Túnel Santa Bárbara",
+    		"tels": [
+    			"0800-282-8664",
+    			"3852-0382"
+    		]
+    	},    	
+    	{
+    		"label": "Via Dutra",
+    		"tels": [
+    			"2557-2829",
+    			"2557-2801"
+    		]
+    	},
+    	{
+    		"label": "Via Lagos",
+    		"tels": [
+    			"0800-702-0124",
+    			"(22) 2665-6565"
+    		]
+    	}
+    ]
+}
