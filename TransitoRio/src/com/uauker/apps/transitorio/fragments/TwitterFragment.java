@@ -24,10 +24,12 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.adapters.RodoviaAdapter;
+import com.uauker.apps.transitorio.adapters.TwitterAdapter;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
 import com.uauker.apps.transitorio.models.ccr.Occurrence;
+import com.uauker.apps.transitorio.models.twitter.Tweet;
 
 public class TwitterFragment extends SherlockFragment implements
 		OnClickToTryAgain, OnOpenListener, OnCloseListener {
@@ -40,7 +42,7 @@ public class TwitterFragment extends SherlockFragment implements
 	ViewStub internetFailureViewStub;
 	View emptyView;
 
-	List<Occurrence> occurrences = new ArrayList<Occurrence>();
+	List<Tweet> tweets = new ArrayList<Tweet>();
 
 	AsyncHttpClient client = new AsyncHttpClient();
 
@@ -189,7 +191,7 @@ public class TwitterFragment extends SherlockFragment implements
 		public void onFinish() {
 			super.onFinish();
 
-			if (TwitterFragment.this.occurrences.size() == 0
+			if (TwitterFragment.this.tweets.size() == 0
 					&& TwitterFragment.this.internetFailureViewStub
 							.getVisibility() != View.VISIBLE) {
 				TwitterFragment.this.twitterListView
@@ -198,10 +200,10 @@ public class TwitterFragment extends SherlockFragment implements
 		}
 
 		private void setupListView() {
-			RodoviaAdapter occurrenceAdapter = new RodoviaAdapter(
+			TwitterAdapter twitterAdapter = new TwitterAdapter(
 					TwitterFragment.this.ownerActivity,
-					R.layout.adapter_rodovia, occurrences);
-			twitterListView.setAdapter(occurrenceAdapter);
+					R.layout.adapter_rodovia, tweets);
+			twitterListView.setAdapter(twitterAdapter);
 		}
 	}
 
