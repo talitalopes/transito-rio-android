@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_refresh"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_refresh_list"/>
+    <item
+        android:id="@+id/menu_telephone"
+        android:icon="@drawable/ic_telephone"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_telephone_call"/>
+
+</menu>
