@@ -1,13 +1,9 @@
 package com.uauker.apps.transitorio.fragments;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +18,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnCloseListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.loopj.android.http.AsyncHttpClient;
@@ -33,8 +25,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.adapters.RodoviaAdapter;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
-import com.uauker.apps.transitorio.helpers.ConfigHelper;
-import com.uauker.apps.transitorio.helpers.RodoviaHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
 import com.uauker.apps.transitorio.models.ccr.Occurrence;
@@ -56,10 +46,6 @@ public class TwitterFragment extends SherlockFragment implements
 
 	private Activity ownerActivity;
 
-	public String slugTwitter;
-
-	public ColorDrawable twitterColor;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -67,9 +53,7 @@ public class TwitterFragment extends SherlockFragment implements
 		final ActionBar ab = ((SherlockFragmentActivity) ownerActivity)
 				.getSupportActionBar();
 
-		if (ownerActivity != null && slugTwitter != null) {
-			ab.setTitle(RodoviaHelper.findByName(ownerActivity, slugTwitter));
-		}
+		ab.setTitle(R.string.traffic);
 
 		setHasOptionsMenu(true);
 
@@ -108,7 +92,7 @@ public class TwitterFragment extends SherlockFragment implements
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.menu_reload_and_call, menu);
+		inflater.inflate(R.menu.menu_reload, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
@@ -118,15 +102,6 @@ public class TwitterFragment extends SherlockFragment implements
 		case R.id.menu_refresh:
 			loadTweets();
 			return true;
-
-		case R.id.menu_telephone:
-			calling();
-			return true;
-			// case R.id.menu_settings:
-			// Intent intent = new Intent(ownerActivity,
-			// SettingsActivity.class);
-			// ownerActivity.startActivity(intent);
-			// return true;
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -151,18 +126,8 @@ public class TwitterFragment extends SherlockFragment implements
 		loadTweets();
 	}
 
-	private void calling() {
-		String telephone = RodoviaHelper.findByTelephone(ownerActivity,
-				slugTwitter);
-		telephone = telephone.replace(" ", "");
-
-		Intent intent = new Intent(Intent.ACTION_CALL);
-		intent.setData(Uri.parse("tel:" + telephone));
-		ownerActivity.startActivity(intent);
-	}
-
 	private void loadTweets() {
-		String url = ConfigHelper.urlFormat(slugTwitter);
+//		String url = ConfigHelper.urlFormat(slugTwitter);
 
 //		client.get(url, new TwitterAsyncTask());
 	}
