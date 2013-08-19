@@ -10,6 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.models.twitter.Tweet;
 
@@ -17,11 +21,19 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 
 	private List<Tweet> datasource;
 	private LayoutInflater inflater;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
 
 	public TwitterAdapter(Context context, int layout, List<Tweet> tweets) {
 		super(context, 0, tweets);
 		this.inflater = LayoutInflater.from(context);
 		this.datasource = tweets;
+
+		options = new DisplayImageOptions.Builder()
+				.showImageForEmptyUri(R.drawable.ic_launcher)
+				.resetViewBeforeLoading(true).cacheOnDisc(true)
+				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+				.displayer(new FadeInBitmapDisplayer(300)).build();
 	}
 
 	public View getView(final int position, View convertView, ViewGroup parent) {
@@ -33,21 +45,20 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 
 		ImageView tweetImage = (ImageView) rowView
 				.findViewById(R.id.adapter_twitter_image);
-
-		// TODO: setar imagem do tweet usando lib do UIL
+		imageLoader.displayImage(tweet.user.profileImageURL, tweetImage,
+				options);
 
 		TextView tweetUserName = (TextView) rowView
 				.findViewById(R.id.adapter_twitter_user_name);
-
 		tweetUserName.setText(tweet.user.username);
-
-		TextView tweetPublishedAt = (TextView) rowView
-				.findViewById(R.id.adapter_twitter_published_at);
-		tweetPublishedAt.setText(tweet.publishedAt());
 
 		TextView tweetText = (TextView) rowView
 				.findViewById(R.id.adapter_twitter_text);
 		tweetText.setText(tweet.text);
+
+		TextView tweetPublishedAt = (TextView) rowView
+				.findViewById(R.id.adapter_twitter_published_at);
+		tweetPublishedAt.setText(tweet.publishedAt());
 
 		return rowView;
 	}
