@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_default"
+    android:orientation="vertical" >
+
+    <ViewStub
+        android:id="@+id/twitter_loading"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+
+    <ViewStub
+        android:id="@+id/twitter_internet_failure"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+
+    <ViewStub
+        android:id="@+id/twitter_info"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/twitter_list_empty_message"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:text="@string/empty_list"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/twitter_listview"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/adView"
+        android:divider="@android:color/transparent" />
+
+    <com.google.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/ADMOB_ID" >
+    </com.google.ads.AdView>
+
+    <ImageView
+        android:id="@+id/twitter_shadow"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/menu_opened"
+        android:contentDescription="@string/description_image_blur_fragment"
+        android:visibility="gone" />
+
+</RelativeLayout>
