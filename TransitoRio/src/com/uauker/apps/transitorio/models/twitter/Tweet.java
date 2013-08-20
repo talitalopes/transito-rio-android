@@ -17,8 +17,8 @@ public class Tweet implements Serializable {
 	public Date publishDate;
 	public String text;
 	
-	public String humanDate() {
-		PrettyTime p = new PrettyTime(new Locale("PT"));
+	public String humanDate(Locale locale) {
+		PrettyTime p = new PrettyTime(locale);
 		return p.format(publishDate);
 	}	
 }
