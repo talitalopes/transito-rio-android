@@ -1,6 +1,5 @@
 package com.uauker.apps.transitorio.activities;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -10,10 +9,9 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnCloseListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.uauker.apps.transitorio.R;
-import com.uauker.apps.transitorio.fragments.RodoviaFragment;
+import com.uauker.apps.transitorio.fragments.TwitterFragment;
 import com.uauker.apps.transitorio.helpers.SharedPreferencesHelper;
 import com.uauker.apps.transitorio.menu.MenuListFragment;
-import com.uauker.apps.transitorio.menu.MenuListFragment.Source;
 
 public class MainActivity extends BaseActivity {
 
@@ -39,11 +37,7 @@ public class MainActivity extends BaseActivity {
 		}
 
 		if (mContent == null) {
-			Source slugItem = Source.values()[0];
-			String slug = slugItem.name();
-
-			mContent = new RodoviaFragment(slug, new ColorDrawable(
-					getResources().getColor(R.color.home)));
+			mContent = new TwitterFragment();
 		}
 
 		if (mContent != null) {
