@@ -3,7 +3,10 @@ package com.uauker.apps.transitorio.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import twitter4j.Twitter;
+
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -23,13 +27,13 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.uauker.apps.transitorio.R;
-import com.uauker.apps.transitorio.adapters.RodoviaAdapter;
 import com.uauker.apps.transitorio.adapters.TwitterAdapter;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
-import com.uauker.apps.transitorio.models.ccr.Occurrence;
 import com.uauker.apps.transitorio.models.twitter.Tweet;
+import com.uauker.apps.transitorio.services.TwitterService;
+import com.uauker.apps.transitorio.services.TwitterServiceException;
 
 public class TwitterFragment extends SherlockFragment implements
 		OnClickToTryAgain, OnOpenListener, OnCloseListener {
@@ -44,9 +48,9 @@ public class TwitterFragment extends SherlockFragment implements
 
 	List<Tweet> tweets = new ArrayList<Tweet>();
 
-	AsyncHttpClient client = new AsyncHttpClient();
-
 	private Activity ownerActivity;
+
+	private TwitterAsyncTask task;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,7 +124,9 @@ public class TwitterFragment extends SherlockFragment implements
 	public void onDestroy() {
 		super.onDestroy();
 
-		this.client.cancelRequests(ownerActivity, true);
+		if (task != null) {
+			task.cancel(true);
+		}
 	}
 
 	@Override
@@ -129,82 +135,41 @@ public class TwitterFragment extends SherlockFragment implements
 	}
 
 	private void loadTweets() {
-//		String url = ConfigHelper.urlFormat(slugTwitter);
+		// String url = ConfigHelper.urlFormat(slugTwitter);
 
-//		client.get(url, new TwitterAsyncTask());
+		// client.get(url, new TwitterAsyncTask());
+		this.task = new TwitterAsyncTask();
+		this.task.execute();
 	}
 
-	class TwitterAsyncTask extends AsyncHttpResponseHandler {
+	class TwitterAsyncTask extends AsyncTask<Void, Void, List<Tweet>> {
 
 		@Override
-		public void onStart() {
-			super.onStart();
+		protected List<Tweet> doInBackground(Void... params) {
+			List<Tweet> tweets = new ArrayList<Tweet>();
 
-			TwitterFragment.this.loadingViewStub.setVisibility(View.VISIBLE);
-			TwitterFragment.this.internetFailureViewStub
-					.setVisibility(View.GONE);
-			TwitterFragment.this.twitterListView.setVisibility(View.GONE);
-		}
+			try {
 
-		@Override
-		public void onFailure(Throwable arg0, String arg1) {
-			super.onFailure(arg0, arg1);
+				TwitterService twitter = new TwitterService();
 
-			TwitterFragment.this.loadingViewStub.setVisibility(View.GONE);
-			TwitterFragment.this.internetFailureViewStub
-					.setVisibility(View.VISIBLE);
-			TwitterFragment.this.twitterListView.setVisibility(View.GONE);
-		}
+				tweets = twitter.getTweetsFromUserList("uauker", "transito-rj",
+						10);
 
-		@Override
-		public void onSuccess(String result) {
-			super.onSuccess(result);
-
-			// TODO: Criar metodo para recuperar os tweets de transito
-//			try {
-//				Gson gson = new Gson();
-//				JsonArray content = new JsonParser().parse(result)
-//						.getAsJsonObject().getAsJsonArray("Occurences");
-//
-//				Iterator<JsonElement> it = content.iterator();
-//
-//				while (it.hasNext()) {
-//					JsonElement occurrenceJson = it.next();
-//					Occurrence occurrence = gson.fromJson(occurrenceJson,
-//							Occurrence.class);
-//					occurrences.add(occurrence);
-//				}
-//
-//				TwitterFragment.this.loadingViewStub.setVisibility(View.GONE);
-//				TwitterFragment.this.internetFailureViewStub
-//						.setVisibility(View.GONE);
-//				TwitterFragment.this.twitterListView
-//						.setVisibility(View.VISIBLE);
-//
-//				setupListView();
-//			} catch (Exception e) {
-//				onFailure(e, "");
-//			}
-		}
-
-		@Override
-		public void onFinish() {
-			super.onFinish();
-
-			if (TwitterFragment.this.tweets.size() == 0
-					&& TwitterFragment.this.internetFailureViewStub
-							.getVisibility() != View.VISIBLE) {
-				TwitterFragment.this.twitterListView
-						.setEmptyView(TwitterFragment.this.emptyView);
+			} catch (TwitterServiceException e) {
+				// como tratar o erro??
 			}
+
+			return tweets;
 		}
 
-		private void setupListView() {
-			TwitterAdapter twitterAdapter = new TwitterAdapter(
-					TwitterFragment.this.ownerActivity,
-					R.layout.adapter_rodovia, tweets);
-			twitterListView.setAdapter(twitterAdapter);
+		@Override
+		protected void onPostExecute(List<Tweet> result) {
+			super.onPostExecute(result);
+
+			Toast.makeText(TwitterFragment.this.ownerActivity,
+					"quantidade: " + tweets.size(), Toast.LENGTH_SHORT).show();
 		}
+
 	}
 
 	@Override
