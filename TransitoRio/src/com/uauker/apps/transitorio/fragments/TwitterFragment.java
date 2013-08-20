@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -23,6 +22,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnCloseListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.uauker.apps.transitorio.R;
+import com.uauker.apps.transitorio.adapters.TwitterAdapter;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
@@ -130,9 +130,6 @@ public class TwitterFragment extends SherlockFragment implements
 	}
 
 	private void loadTweets() {
-		// String url = ConfigHelper.urlFormat(slugTwitter);
-
-		// client.get(url, new TwitterAsyncTask());
 		this.task = new TwitterAsyncTask();
 		this.task.execute();
 	}
@@ -159,8 +156,8 @@ public class TwitterFragment extends SherlockFragment implements
 		protected void onPostExecute(List<Tweet> result) {
 			super.onPostExecute(result);
 
-			Toast.makeText(TwitterFragment.this.ownerActivity,
-					"quantidade: " + tweets.size(), Toast.LENGTH_SHORT).show();
+			TwitterAdapter twitterAdapter = new TwitterAdapter(ownerActivity, R.layout.adapter_twitter, tweets);
+			twitterListView.setAdapter(twitterAdapter);
 		}
 
 	}
