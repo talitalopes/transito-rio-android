@@ -74,7 +74,7 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 
 		TextView tweetPublishedAt = (TextView) rowView
 				.findViewById(R.id.adapter_twitter_published_at);
-		tweetPublishedAt.setText(tweet.publishedAt());
+		tweetPublishedAt.setText(tweet.humanDate());
 
 		return rowView;
 	}

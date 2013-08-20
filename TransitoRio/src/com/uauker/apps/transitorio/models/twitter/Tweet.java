@@ -2,6 +2,9 @@ package com.uauker.apps.transitorio.models.twitter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Locale;
+
+import org.ocpsoft.prettytime.PrettyTime;
 
 public class Tweet implements Serializable {
 
@@ -19,4 +22,8 @@ public class Tweet implements Serializable {
 		return publishedAt;
 	}
 	
+	public String humanDate() {
+		PrettyTime p = new PrettyTime(new Locale("PT"));
+		return p.format(publishDate);
+	}	
 }
