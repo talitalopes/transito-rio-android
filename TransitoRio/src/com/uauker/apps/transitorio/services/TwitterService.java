@@ -53,11 +53,12 @@ public class TwitterService {
 
 			for (Status status : twitterStatusList) {
 				Tweet tweet = new Tweet();
-//				tweet.user.username = status.getUser().getName();
-//				tweet.publishDate = status.getCreatedAt();
-//				tweet.user.profileImageURL = status.getUser()
-//						.getProfileImageURL();
-//				tweet.text = status.getText();
+				tweet.user = new TwitterUser();
+				tweet.user.username = status.getUser().getName();
+				tweet.publishDate = status.getCreatedAt();
+				tweet.user.profileImageURL = status.getUser()
+						.getProfileImageURL();
+				tweet.text = status.getText();
 
 				tweets.add(tweet);
 			}

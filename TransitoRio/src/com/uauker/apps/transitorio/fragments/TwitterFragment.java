@@ -3,8 +3,6 @@ package com.uauker.apps.transitorio.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
-import twitter4j.Twitter;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,10 +22,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnCloseListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.uauker.apps.transitorio.R;
-import com.uauker.apps.transitorio.adapters.TwitterAdapter;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
@@ -146,8 +141,6 @@ public class TwitterFragment extends SherlockFragment implements
 
 		@Override
 		protected List<Tweet> doInBackground(Void... params) {
-			List<Tweet> tweets = new ArrayList<Tweet>();
-
 			try {
 
 				TwitterService twitter = new TwitterService();
