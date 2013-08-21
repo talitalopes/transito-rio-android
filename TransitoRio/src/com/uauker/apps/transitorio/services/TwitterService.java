@@ -52,15 +52,7 @@ public class TwitterService {
 							limitPage));
 
 			for (Status status : twitterStatusList) {
-				Tweet tweet = new Tweet();
-				tweet.user = new TwitterUser();
-				tweet.user.username = status.getUser().getName();
-				tweet.publishDate = status.getCreatedAt();
-				tweet.user.profileImageURL = status.getUser()
-						.getProfileImageURL();
-				tweet.text = status.getText();
-
-				tweets.add(tweet);
+				tweets.add(new Tweet(status));
 			}
 
 		} catch (TwitterException e) {
@@ -86,12 +78,7 @@ public class TwitterService {
 					.getUserListMembers(list.getId(), -1);
 
 			for (User user : userListMembers) {
-				TwitterUser twitterUser = new TwitterUser();
-				twitterUser.username = user.getName();
-				twitterUser.profileImageURL = user.getProfileImageURL();
-				twitterUser.description = user.getDescription();
-
-				users.add(twitterUser);
+				users.add(new TwitterUser(user));
 			}
 		} catch (TwitterException e) {
 			throw new TwitterServiceException(

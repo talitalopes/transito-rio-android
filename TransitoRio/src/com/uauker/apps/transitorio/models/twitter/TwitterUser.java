@@ -2,6 +2,8 @@ package com.uauker.apps.transitorio.models.twitter;
 
 import java.io.Serializable;
 
+import twitter4j.User;
+
 public class TwitterUser implements Serializable {
 
 	/**
@@ -13,4 +15,7 @@ public class TwitterUser implements Serializable {
 	public String profileImageURL;
 	public String description;
 
+	public TwitterUser(User user) {
+		this.username = user.getName();
+	}
 }
