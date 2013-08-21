@@ -34,20 +34,10 @@
     <string name="ponte">Ponte Rio Niterói</string>
     <string name="novadutra">Nova Dutra</string>
     <string name="rodoviadoslagos">Via Lagos</string>
-    <string name="rodonorte">RodoNorte</string>
-    <string name="autoban">AutoBAn</string>
-    <string name="viaoeste">ViaOeste</string>
-    <string name="rodoaneloeste">RodoAnel</string>
-    <string name="spvias">SPVias</string>
 
     <!-- RODOVIAS TELS -->
     <string name="ponte_tel">0800 022 9333</string>
     <string name="novadutra_tel">0800 017 3536</string>
     <string name="rodoviadoslagos_tel">0800 702 0124</string>
-    <string name="rodonorte_tel">0800 42 1500</string>
-    <string name="autoban_tel">0800 055 55 50</string>
-    <string name="viaoeste_tel">0800 701 5555</string>
-    <string name="rodoaneloeste_tel">0800 773 6699</string>
-    <string name="spvias_tel">0800 703 50 30</string>
 
 </resources>

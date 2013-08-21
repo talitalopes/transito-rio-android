@@ -54,7 +54,7 @@ public class TwitterFragment extends SherlockFragment implements
 		final ActionBar ab = ((SherlockFragmentActivity) ownerActivity)
 				.getSupportActionBar();
 
-		ab.setTitle(R.string.traffic);
+		ab.setTitle(R.string.app_name);
 
 		setHasOptionsMenu(true);
 
