@@ -1,5 +1,4 @@
-{
-    "util": [
+[
     	{
     		"label": "Ambulância - SAMU",
     		"tels": [
@@ -136,4 +135,3 @@
     		]
     	}
     ]
-}

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.activities.MainActivity;
 import com.uauker.apps.transitorio.fragments.RodoviaFragment;
+import com.uauker.apps.transitorio.fragments.TelephoneFragment;
 import com.uauker.apps.transitorio.fragments.TwitterFragment;
 import com.uauker.apps.transitorio.helpers.SharedPreferencesHelper;
 
@@ -26,7 +27,7 @@ import com.uauker.apps.transitorio.helpers.SharedPreferencesHelper;
 public class MenuListFragment extends ListFragment {
 
 	public enum Source {
-		TRANSITO, PONTE, NOVADUTRA, RODOVIADOSLAGOS, RODONORTE, AUTOBAN, VIAOESTE, RODOANELOESTE, SPVIAS
+		TRANSITO, PONTE, NOVADUTRA, RODOVIADOSLAGOS, TELEFONESUTEIS
 	};
 
 	private Activity ownerActivity;
@@ -37,7 +38,7 @@ public class MenuListFragment extends ListFragment {
 
 	SharedPreferencesHelper sharedPreferences;
 
-	List<SourceItemMenu> rodovias = new ArrayList<SourceItemMenu>();
+	List<SourceItemMenu> menuItems = new ArrayList<SourceItemMenu>();
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -73,11 +74,11 @@ public class MenuListFragment extends ListFragment {
 
 	private List<SourceItemMenu> getItemFromMenu() {
 		for (String item : getResources().getStringArray(R.array.menu)) {
-			rodovias.add(new SourceItemMenu(item, R.color.home,
+			menuItems.add(new SourceItemMenu(item, R.color.home,
 					R.color.home_second));
 		}
 
-		return rodovias;
+		return menuItems;
 	}
 
 	private void switchFragment(Fragment fragment) {
@@ -157,6 +158,10 @@ public class MenuListFragment extends ListFragment {
 
 					if (itemRodovia == Source.TRANSITO) {
 						newContent = new TwitterFragment();
+					}
+					
+					if (itemRodovia == Source.TELEFONESUTEIS) {
+						newContent = new TelephoneFragment();
 					}
 
 					if (newContent != null) {

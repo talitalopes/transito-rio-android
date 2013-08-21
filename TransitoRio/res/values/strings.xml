@@ -4,7 +4,6 @@
     <string name="app_name">Trânsito Rio</string>
     <string name="ADMOB_ID">a1520ae27f296d3</string>
     <string name="hello_world">Hello world!</string>
-    <string name="traffic">Trânsito</string>
     <string name="title_activity_news">NewsActivity</string>
     <string name="title_activity_video">VideoActivity</string>
     <string name="example_news_title">Depois do protesto, manhã de limpeza e policiamento reforçado no Palácio Guanabara</string>
@@ -30,10 +29,12 @@
     <string name="description_image_blur_fragment">blur por cima do conteudo</string>
     <string name="title_activity_settings">Configurações</string>
 
-    <!-- RODOVIAS -->
+    <!-- SLIDING MENU -->
+    <string name="traffic">Trânsito</string>
     <string name="ponte">Ponte Rio Niterói</string>
     <string name="novadutra">Nova Dutra</string>
     <string name="rodoviadoslagos">Via Lagos</string>
+    <string name="telefones_uteis">Telefones Úteis</string>
 
     <!-- RODOVIAS TELS -->
     <string name="ponte_tel">0800 022 9333</string>
