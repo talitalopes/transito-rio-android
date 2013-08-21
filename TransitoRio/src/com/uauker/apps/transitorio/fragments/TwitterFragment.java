@@ -142,8 +142,7 @@ public class TwitterFragment extends SherlockFragment implements
 
 				TwitterService twitter = new TwitterService();
 
-				tweets = twitter.getTweetsFromUserList("uauker", "transito-rj",
-						10);
+				tweets = twitter.getTweetsFromUserList("uauker", "transito-rj");
 
 			} catch (TwitterServiceException e) {
 				// como tratar o erro??
