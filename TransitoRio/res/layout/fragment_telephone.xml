@@ -37,8 +37,7 @@
         android:id="@+id/telephone_listview"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/adView"
-        android:divider="@android:color/transparent" />
+        android:layout_above="@+id/adView" />
 
     <com.google.ads.AdView
         android:id="@+id/adView"
