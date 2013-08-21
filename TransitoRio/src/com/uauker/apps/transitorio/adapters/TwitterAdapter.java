@@ -13,10 +13,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.models.twitter.Tweet;
 
@@ -33,23 +29,6 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 		this.inflater = LayoutInflater.from(context);
 		this.datasource = tweets;
 		this.ownerActivity = (Activity) context;
-
-		initImageLoader();
-	}
-
-	private void initImageLoader() {
-		options = new DisplayImageOptions.Builder()
-				.showImageForEmptyUri(R.drawable.ic_launcher)
-				.resetViewBeforeLoading(true).cacheOnDisc(true)
-				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-				.displayer(new FadeInBitmapDisplayer(300)).build();
-
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				ownerActivity).threadPriority(Thread.NORM_PRIORITY - 2)
-				.threadPoolSize(1).denyCacheImageMultipleSizesInMemory()
-				.tasksProcessingOrder(QueueProcessingType.FIFO).build();
-
-		imageLoader.init(config);
 	}
 
 	public View getView(final int position, View convertView, ViewGroup parent) {
