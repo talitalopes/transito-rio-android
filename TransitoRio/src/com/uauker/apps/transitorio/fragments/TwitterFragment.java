@@ -137,15 +137,22 @@ public class TwitterFragment extends SherlockFragment implements
 	class TwitterAsyncTask extends AsyncTask<Void, Void, List<Tweet>> {
 
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+
+			TwitterFragment.this.loadingViewStub.setVisibility(View.VISIBLE);
+			TwitterFragment.this.internetFailureViewStub
+					.setVisibility(View.GONE);
+			TwitterFragment.this.twitterListView.setVisibility(View.GONE);
+		}
+
+		@Override
 		protected List<Tweet> doInBackground(Void... params) {
 			try {
-
 				TwitterService twitter = new TwitterService();
 
 				tweets = twitter.getTweetsFromUserList("uauker", "transito-rj");
-
 			} catch (TwitterServiceException e) {
-				// como tratar o erro??
 			}
 
 			return tweets;
@@ -155,8 +162,23 @@ public class TwitterFragment extends SherlockFragment implements
 		protected void onPostExecute(List<Tweet> result) {
 			super.onPostExecute(result);
 
-			TwitterAdapter twitterAdapter = new TwitterAdapter(ownerActivity, R.layout.adapter_twitter, tweets);
+			if (result.size() < 1) {
+				TwitterFragment.this.loadingViewStub.setVisibility(View.GONE);
+				TwitterFragment.this.internetFailureViewStub
+						.setVisibility(View.VISIBLE);
+				TwitterFragment.this.twitterListView.setVisibility(View.GONE);
+
+				return;
+			}
+
+			TwitterAdapter twitterAdapter = new TwitterAdapter(ownerActivity,
+					R.layout.adapter_twitter, tweets);
 			twitterListView.setAdapter(twitterAdapter);
+
+			TwitterFragment.this.loadingViewStub.setVisibility(View.GONE);
+			TwitterFragment.this.internetFailureViewStub
+					.setVisibility(View.GONE);
+			TwitterFragment.this.twitterListView.setVisibility(View.VISIBLE);
 		}
 
 	}
