@@ -4,15 +4,24 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.os.Build.VERSION_CODES;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TextView.BufferType;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.twitter.Extractor;
+import com.twitter.Extractor.Entity;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.models.twitter.Tweet;
 
@@ -49,7 +58,8 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 
 		TextView tweetText = (TextView) rowView
 				.findViewById(R.id.adapter_twitter_text);
-		tweetText.setText(tweet.text);
+		tweetText.setText(twitterTextSpannable(tweet.text),
+				BufferType.SPANNABLE);
 
 		TextView tweetPublishedAt = (TextView) rowView
 				.findViewById(R.id.adapter_twitter_published_at);
@@ -57,6 +67,39 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 				.getConfiguration().locale));
 
 		return rowView;
+	}
+
+	public SpannableString twitterTextSpannable(String text) {
+		SpannableString textSpannableString = new SpannableString(text);
+		
+		if (Build.VERSION.SDK_INT < VERSION_CODES.ICE_CREAM_SANDWICH) {
+			return textSpannableString;
+		}
+		
+		Extractor extractor = new Extractor();
+
+		for (Entity entity : extractor.extractHashtagsWithIndices(text)) {
+			textSpannableString.setSpan(new ForegroundColorSpan(
+					R.color.twitter_hashtag), entity.getStart(), entity
+					.getEnd(), 0);
+		}
+
+		for (Entity entity : extractor
+				.extractMentionedScreennamesWithIndices(text)) {
+			textSpannableString.setSpan(new ForegroundColorSpan(
+					R.color.twitter_screenname), entity.getStart(), entity
+					.getEnd(), 0);
+			textSpannableString.setSpan(new StyleSpan(Typeface.BOLD), entity.getStart(), entity
+					.getEnd(), 0);
+		}
+
+		for (Entity entity : extractor.extractURLsWithIndices(text)) {
+			textSpannableString
+					.setSpan(new ForegroundColorSpan(R.color.twitter_url),
+							entity.getStart(), entity.getEnd(), 0);
+		}
+
+		return textSpannableString;
 	}
 
 	@Override
