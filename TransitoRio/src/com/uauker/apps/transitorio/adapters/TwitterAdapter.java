@@ -62,14 +62,13 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 
 		TextView tweetText = (TextView) rowView
 				.findViewById(R.id.adapter_twitter_text);
-		tweetText.setMovementMethod(LinkMovementMethod.getInstance()); 
+		tweetText.setMovementMethod(LinkMovementMethod.getInstance());
 		tweetText.setText(twitterTextSpannable(tweet.text),
 				BufferType.SPANNABLE);
 
 		TextView tweetPublishedAt = (TextView) rowView
 				.findViewById(R.id.adapter_twitter_published_at);
-		tweetPublishedAt.setText(tweet.humanDate(ownerActivity.getResources()
-				.getConfiguration().locale));
+		tweetPublishedAt.setText(tweet.humanDate());
 
 		return rowView;
 	}
@@ -108,7 +107,7 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 				public void onClick(View view) {
 					Intent i = new Intent(Intent.ACTION_VIEW);
 					i.setData(Uri.parse(entity.getValue()));
-					ownerActivity.startActivity(i);					
+					ownerActivity.startActivity(i);
 				}
 			};
 
