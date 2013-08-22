@@ -126,7 +126,7 @@ public class Occurrence implements Serializable {
 
 	@SuppressLint("DefaultLocale")
 	public String getDistanceFormatted() {
-		String distance = String.format("%.0fkm até %.0fkm",
+		String distance = String.format("%.0fkm at√© %.0fkm",
 				this.distanceMarkerIni, this.distanceMarkerEnd);
 
 		if (this.distanceMarkerIni == this.distanceMarkerEnd) {
