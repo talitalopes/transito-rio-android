@@ -17,6 +17,11 @@
     <color name="home">#212121</color>
     <color name="home_second">#000000</color>
     
+    <!-- TWITTER -->
+    <color name="twitter_hashtag">#979A9E</color>
+    <color name="twitter_screenname">#475A6D</color>
+    <color name="twitter_url">#2D71B2</color>
+    
     <!-- BOX -->
     <color name="box_green">#7ac40b</color>
     <color name="box_green_second">#4a7c00</color>
