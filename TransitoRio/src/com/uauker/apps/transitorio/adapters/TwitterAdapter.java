@@ -4,10 +4,14 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
 import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
@@ -58,6 +62,7 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 
 		TextView tweetText = (TextView) rowView
 				.findViewById(R.id.adapter_twitter_text);
+		tweetText.setMovementMethod(LinkMovementMethod.getInstance()); 
 		tweetText.setText(twitterTextSpannable(tweet.text),
 				BufferType.SPANNABLE);
 
@@ -71,32 +76,44 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 
 	public SpannableString twitterTextSpannable(String text) {
 		SpannableString textSpannableString = new SpannableString(text);
-		
+
 		if (Build.VERSION.SDK_INT < VERSION_CODES.ICE_CREAM_SANDWICH) {
 			return textSpannableString;
 		}
-		
+
 		Extractor extractor = new Extractor();
 
-		for (Entity entity : extractor.extractHashtagsWithIndices(text)) {
+		for (final Entity entity : extractor.extractHashtagsWithIndices(text)) {
 			textSpannableString.setSpan(new ForegroundColorSpan(
 					R.color.twitter_hashtag), entity.getStart(), entity
 					.getEnd(), 0);
 		}
 
-		for (Entity entity : extractor
+		for (final Entity entity : extractor
 				.extractMentionedScreennamesWithIndices(text)) {
 			textSpannableString.setSpan(new ForegroundColorSpan(
 					R.color.twitter_screenname), entity.getStart(), entity
 					.getEnd(), 0);
-			textSpannableString.setSpan(new StyleSpan(Typeface.BOLD), entity.getStart(), entity
-					.getEnd(), 0);
+			textSpannableString.setSpan(new StyleSpan(Typeface.BOLD),
+					entity.getStart(), entity.getEnd(), 0);
 		}
 
-		for (Entity entity : extractor.extractURLsWithIndices(text)) {
+		for (final Entity entity : extractor.extractURLsWithIndices(text)) {
 			textSpannableString
 					.setSpan(new ForegroundColorSpan(R.color.twitter_url),
 							entity.getStart(), entity.getEnd(), 0);
+
+			ClickableSpan clickableSpan = new ClickableSpan() {
+				@Override
+				public void onClick(View view) {
+					Intent i = new Intent(Intent.ACTION_VIEW);
+					i.setData(Uri.parse(entity.getValue()));
+					ownerActivity.startActivity(i);					
+				}
+			};
+
+			textSpannableString.setSpan(clickableSpan, entity.getStart(),
+					entity.getEnd(), 0);
 		}
 
 		return textSpannableString;
