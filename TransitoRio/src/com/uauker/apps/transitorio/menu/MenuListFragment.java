@@ -159,7 +159,7 @@ public class MenuListFragment extends ListFragment {
 					if (itemRodovia == Source.TRANSITO) {
 						newContent = new TwitterFragment();
 					}
-					
+
 					if (itemRodovia == Source.TELEFONESUTEIS) {
 						newContent = new TelephoneFragment();
 					}
@@ -177,6 +177,12 @@ public class MenuListFragment extends ListFragment {
 			return convertView;
 		}
 
+	}
+
+	public boolean isHome() {
+		String menuRow = sharedPreferences.getString(SELECTED_MENU_ROW);
+
+		return menuRow == null || menuRow.equalsIgnoreCase("0");
 	}
 
 }

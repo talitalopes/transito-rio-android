@@ -60,6 +60,33 @@ public class MainActivity extends BaseActivity {
 	}
 
 	@Override
+	public void onBackPressed() {
+		try {
+			if (!((MenuListFragment) this.mFrag).isHome()) {
+				mContent = new TwitterFragment();
+
+				sharedPreferences = SharedPreferencesHelper
+						.getInstance(getApplicationContext());
+
+				sharedPreferences.setString(MenuListFragment.SELECTED_MENU_ROW,
+						"0");
+
+				getSupportFragmentManager().beginTransaction()
+						.replace(R.id.menu_frame, new MenuListFragment())
+						.commit();
+
+				switchContent(mContent);
+
+				return;
+			}
+
+			super.onBackPressed();
+		} catch (Exception e) {
+			super.onBackPressed();
+		}
+	}
+
+	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
