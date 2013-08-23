@@ -17,7 +17,7 @@ public class SettingsActivity extends RoboSherlockListActivity {
 		final ActionBar ab = getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
 		ab.setDisplayUseLogoEnabled(true);
-		ab.setDisplayShowTitleEnabled(false);
+		ab.setDisplayShowTitleEnabled(true);
 
 		setListAdapter();
 	}
