@@ -1,7 +1,6 @@
 package com.uauker.apps.transitorio.activities;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
