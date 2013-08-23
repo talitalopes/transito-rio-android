@@ -29,6 +29,19 @@
     <string name="description_image_blur_fragment">blur por cima do conteudo</string>
     <string name="title_activity_settings">Configurações</string>
 
+    <!-- MENU DE CONFIGURACAO -->
+    <string name="menu_config_information_problem">Informe um problema</string>
+    <string name="menu_config_review">Avalie o aplicativo</string>
+    <string name="menu_config_share_app_for_android">Compartilhe o aplicativo</string>
+
+    <!-- INFORMAR UM PROBLEMA -->
+    <string name="information_problem_to">cinelandia.supporte@gmail.com</string>
+    <string name="information_problem_subject">[Android] Trânsito Rio - Informe um problema</string>
+
+    <!-- EMAIL APP -->
+    <string name="email_app_subject">Conheça o Trânsito Rio para Android</string>
+    <string name="email_app_text">Baixe de graça o aplicativo do Trânsito Rio para Android e ganhe tempo no trânsito.\n\n%s</string>
+
     <!-- SLIDING MENU -->
     <string name="traffic">Trânsito</string>
     <string name="ponte">Ponte Rio-Niterói</string>

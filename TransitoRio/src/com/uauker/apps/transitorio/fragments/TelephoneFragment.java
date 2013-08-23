@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,13 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnCloseListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.uauker.apps.transitorio.R;
+import com.uauker.apps.transitorio.activities.SettingsActivity;
 import com.uauker.apps.transitorio.adapters.TelephoneAdapter;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.models.others.Telephone;
@@ -37,7 +42,7 @@ public class TelephoneFragment extends SherlockFragment implements
 	List<Telephone> telephones = new ArrayList<Telephone>();
 
 	private TelephoneService telephoneService;
-	
+
 	private Activity ownerActivity;
 
 	@Override
@@ -70,7 +75,7 @@ public class TelephoneFragment extends SherlockFragment implements
 		this.telephoneService = new TelephoneService(ownerActivity);
 		this.telephones = this.telephoneService.getTelephones();
 		setupListView();
-		
+
 		if (contentView != null) {
 			BannerHelper.setUpAdmob(contentView);
 		}
@@ -82,6 +87,25 @@ public class TelephoneFragment extends SherlockFragment implements
 		TelephoneAdapter telephoneAdapter = new TelephoneAdapter(ownerActivity,
 				R.layout.adapter_telephone, telephones);
 		telephoneListView.setAdapter(telephoneAdapter);
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.menu_reload_and_call, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.menu_settings:
+			Intent intent = new Intent(ownerActivity, SettingsActivity.class);
+			ownerActivity.startActivity(intent);
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

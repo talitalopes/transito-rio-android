@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnCloseListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.uauker.apps.transitorio.R;
+import com.uauker.apps.transitorio.activities.SettingsActivity;
 import com.uauker.apps.transitorio.adapters.TwitterAdapter;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
@@ -102,6 +104,10 @@ public class TwitterFragment extends SherlockFragment implements
 		switch (item.getItemId()) {
 		case R.id.menu_refresh:
 			loadTweets();
+			return true;
+		case R.id.menu_settings:
+			Intent intent = new Intent(ownerActivity, SettingsActivity.class);
+			ownerActivity.startActivity(intent);
 			return true;
 		}
 

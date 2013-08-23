@@ -32,6 +32,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.uauker.apps.transitorio.R;
+import com.uauker.apps.transitorio.activities.SettingsActivity;
 import com.uauker.apps.transitorio.adapters.RodoviaAdapter;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.helpers.ConfigHelper;
@@ -135,11 +136,10 @@ public class RodoviaFragment extends SherlockFragment implements
 		case R.id.menu_telephone:
 			calling();
 			return true;
-			// case R.id.menu_settings:
-			// Intent intent = new Intent(ownerActivity,
-			// SettingsActivity.class);
-			// ownerActivity.startActivity(intent);
-			// return true;
+		case R.id.menu_settings:
+			Intent intent = new Intent(ownerActivity, SettingsActivity.class);
+			ownerActivity.startActivity(intent);
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
