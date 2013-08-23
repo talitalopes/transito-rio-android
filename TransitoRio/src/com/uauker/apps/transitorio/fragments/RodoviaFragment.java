@@ -213,6 +213,8 @@ public class RodoviaFragment extends SherlockFragment implements
 
 				Iterator<JsonElement> it = content.iterator();
 
+				occurrences.clear();
+				
 				while (it.hasNext()) {
 					JsonElement occurrenceJson = it.next();
 					Occurrence occurrence = gson.fromJson(occurrenceJson,
