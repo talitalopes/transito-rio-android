@@ -21,7 +21,7 @@ import com.uauker.apps.transitorio.models.twitter.TwitterUser;
 
 public class TwitterService {
 
-	public static int DEFAULT_MAX_PER_PAGE_RESULTS = 10;
+	public static int DEFAULT_MAX_PER_PAGE_RESULTS = 35;
 
 	public List<Tweet> getTweetsFromUserList(String userName, String userList)
 			throws TwitterServiceException {
