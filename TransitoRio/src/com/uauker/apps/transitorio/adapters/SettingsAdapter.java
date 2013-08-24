@@ -28,12 +28,11 @@ public class SettingsAdapter extends ArrayAdapter<String> {
 
 	public final static List<Integer> NAMES = Arrays.asList(new Integer[] {
 			R.string.menu_config_share_app_for_android,
-			R.string.menu_config_review,
-			R.string.menu_config_information_problem });
+			R.string.menu_config_review, });
 
 	@SuppressWarnings("rawtypes")
 	public final static List<Class> CLASSES = Arrays.asList(new Class[] { null,
-			null, null });
+			null });
 
 	public SettingsAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId);

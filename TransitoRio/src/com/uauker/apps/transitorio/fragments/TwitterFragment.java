@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -88,17 +87,17 @@ public class TwitterFragment extends SherlockFragment implements
 		this.twitterListView = (ListView) contentView
 				.findViewById(R.id.twitter_listview);
 
-		Button btnLoadMore = new Button(ownerActivity);
-		btnLoadMore.setText("Load More");
-		btnLoadMore.setOnClickListener(new Button.OnClickListener() {
-			public void onClick(View v) {
-				page++;
-
-				loadTweets();
-			}
-		});
-
-		this.twitterListView.addFooterView(btnLoadMore);
+//		Button btnLoadMore = new Button(ownerActivity);
+//		btnLoadMore.setText("Load More");
+//		btnLoadMore.setOnClickListener(new Button.OnClickListener() {
+//			public void onClick(View v) {
+//				page++;
+//
+//				loadTweets();
+//			}
+//		});
+//
+//		this.twitterListView.addFooterView(btnLoadMore);
 
 		this.emptyView = contentView
 				.findViewById(R.id.twitter_list_empty_message);
