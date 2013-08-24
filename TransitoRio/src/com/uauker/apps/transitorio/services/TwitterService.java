@@ -33,11 +33,18 @@ public class TwitterService {
 			int page) throws TwitterServiceException {
 
 		return getTweetsFromUserList(userName, userList, page,
-				DEFAULT_MAX_PER_PAGE_RESULTS);
+				DEFAULT_MAX_PER_PAGE_RESULTS, -1);
 	}
 
 	public List<Tweet> getTweetsFromUserList(String userName, String userList,
-			int page, int limitPage) throws TwitterServiceException {
+			int page, long maxID) throws TwitterServiceException {
+
+		return getTweetsFromUserList(userName, userList, page,
+				DEFAULT_MAX_PER_PAGE_RESULTS, maxID);
+	}
+
+	public List<Tweet> getTweetsFromUserList(String userName, String userList,
+			int page, int limitPage, long maxID) throws TwitterServiceException {
 
 		List<Tweet> tweets = new ArrayList<Tweet>();
 
@@ -46,10 +53,15 @@ public class TwitterService {
 			UserList list;
 
 			list = ((ListsResources) twitter).showUserList(userName, userList);
+			
+			Paging paging = new Paging(page, limitPage);
+
+			if (maxID != -1) {
+				paging = new Paging(page, limitPage, 1, maxID);
+			}
 
 			ResponseList<Status> twitterStatusList = ((ListsResources) twitter)
-					.getUserListStatuses(list.getId(), new Paging(page,
-							limitPage));
+					.getUserListStatuses(list.getId(), paging);
 
 			for (Status status : twitterStatusList) {
 				tweets.add(new Tweet(status));

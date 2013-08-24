@@ -15,11 +15,13 @@ public class Tweet implements Serializable {
 	 */
 	private static final long serialVersionUID = -7953009711285241303L;
 	
+	public long id;
 	public TwitterUser user;
 	public Date publishDate;
 	public String text;
 	
 	public Tweet(Status status) {
+		this.id = status.getId();
 		this.user = new TwitterUser(status.getUser());
 		this.publishDate = status.getCreatedAt();
 		this.user.profileImageURL = status.getUser()
