@@ -34,6 +34,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.activities.SettingsActivity;
 import com.uauker.apps.transitorio.adapters.RodoviaAdapter;
+import com.uauker.apps.transitorio.helpers.AnalyticsHelper;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.helpers.ConfigHelper;
 import com.uauker.apps.transitorio.helpers.RodoviaHelper;
@@ -61,6 +62,8 @@ public class RodoviaFragment extends SherlockFragment implements
 
 	public String slugRodovia;
 
+	public String rodoviaTitle;
+
 	public ColorDrawable rodoviaColor;
 
 	public RodoviaFragment() {
@@ -78,11 +81,15 @@ public class RodoviaFragment extends SherlockFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		rodoviaTitle = RodoviaHelper.findByName(ownerActivity, slugRodovia);
+
+		setGAScreenView();
+
 		final ActionBar ab = ((SherlockFragmentActivity) ownerActivity)
 				.getSupportActionBar();
 
 		if (ownerActivity != null && slugRodovia != null) {
-			ab.setTitle(RodoviaHelper.findByName(ownerActivity, slugRodovia));
+			ab.setTitle(rodoviaTitle);
 		}
 
 		setHasOptionsMenu(true);
@@ -118,6 +125,18 @@ public class RodoviaFragment extends SherlockFragment implements
 		}
 
 		return contentView;
+	}
+
+	private void setGAScreenView() {
+		if (rodoviaTitle.equalsIgnoreCase(getString(R.string.novadutra))) {
+			AnalyticsHelper.sendView(AnalyticsHelper.SCREEN_NOVA_DUTRA);
+		} else if (rodoviaTitle
+				.equalsIgnoreCase(getString(R.string.rodoviadoslagos))) {
+			AnalyticsHelper.sendView(AnalyticsHelper.SCREEN_VIA_LAGOS);
+		} else if (rodoviaTitle.equalsIgnoreCase(getString(R.string.ponte))) {
+			AnalyticsHelper.sendView(AnalyticsHelper.SCREEN_PONTE);
+		}
+
 	}
 
 	@Override
@@ -214,7 +233,7 @@ public class RodoviaFragment extends SherlockFragment implements
 				Iterator<JsonElement> it = content.iterator();
 
 				occurrences.clear();
-				
+
 				while (it.hasNext()) {
 					JsonElement occurrenceJson = it.next();
 					Occurrence occurrence = gson.fromJson(occurrenceJson,

@@ -25,6 +25,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.activities.SettingsActivity;
 import com.uauker.apps.transitorio.adapters.TwitterAdapter;
+import com.uauker.apps.transitorio.helpers.AnalyticsHelper;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
@@ -52,6 +53,8 @@ public class TwitterFragment extends SherlockFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		AnalyticsHelper.sendView(AnalyticsHelper.SCREEN_HOME);
 
 		final ActionBar ab = ((SherlockFragmentActivity) ownerActivity)
 				.getSupportActionBar();
