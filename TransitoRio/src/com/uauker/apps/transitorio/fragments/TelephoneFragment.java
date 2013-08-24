@@ -24,6 +24,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.activities.SettingsActivity;
 import com.uauker.apps.transitorio.adapters.TelephoneAdapter;
+import com.uauker.apps.transitorio.helpers.AnalyticsHelper;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.models.others.Telephone;
 import com.uauker.apps.transitorio.services.TelephoneService;
@@ -48,6 +49,8 @@ public class TelephoneFragment extends SherlockFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		AnalyticsHelper.sendView(AnalyticsHelper.SCREEN_TELEPHONES);
 
 		final ActionBar ab = ((SherlockFragmentActivity) ownerActivity)
 				.getSupportActionBar();

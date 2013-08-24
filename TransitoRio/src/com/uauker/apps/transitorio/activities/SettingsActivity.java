@@ -7,12 +7,15 @@ import com.actionbarsherlock.view.MenuItem;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockListActivity;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.adapters.SettingsAdapter;
+import com.uauker.apps.transitorio.helpers.AnalyticsHelper;
 
 public class SettingsActivity extends RoboSherlockListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		AnalyticsHelper.sendView(AnalyticsHelper.SCREEN_CONFIG);
 
 		final ActionBar ab = getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(true);
