@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -71,11 +73,11 @@ public class TelephoneAdapter extends ArrayAdapter<Telephone> implements
 		ViewGroup dialogLayout = (ViewGroup) inflater.inflate(
 				R.layout.dialog_telephone_buttons, null);
 		builder.setView(dialogLayout);
-		
+
 		TextView dialogTitle = (TextView) dialogLayout
 				.findViewById(R.id.dialog_telephone_buttons_title);
 		dialogTitle.setText(telephone.name);
-		
+
 		builder.setNegativeButton(
 				ownerActivity.getResources().getString(R.string.cancel),
 				new DialogInterface.OnClickListener() {
@@ -90,6 +92,7 @@ public class TelephoneAdapter extends ArrayAdapter<Telephone> implements
 			Button buttonToCall = (Button) inflater.inflate(
 					R.layout.button_telephone_dialog, null);
 			buttonToCall.setText(tel);
+			buttonToCall.setTag(tel);
 			buttonToCall.setOnClickListener(this);
 
 			dialogLayout.addView(buttonToCall, setLayoutParams());
@@ -102,15 +105,17 @@ public class TelephoneAdapter extends ArrayAdapter<Telephone> implements
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT);
-		
+
 		layoutParams.setMargins(30, 0, 30, 5);
 		return layoutParams;
 	}
 
 	@Override
 	public void onClick(View v) {
-		// TODO: click to call
-
+		String tel = (String) v.getTag();
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:" + tel));
+		ownerActivity.startActivity(callIntent);
 	}
 
 }
