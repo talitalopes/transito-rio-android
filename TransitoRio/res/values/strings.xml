@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Trânsito Rio</string>
-    <string name="ADMOB_ID">a1520ae27f296d3</string>
+    <string name="ADMOB_ID">ca-app-pub-8480635244406174/9099196694</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_news">NewsActivity</string>
     <string name="title_activity_video">VideoActivity</string>
