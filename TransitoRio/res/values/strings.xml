@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_news">NewsActivity</string>
     <string name="title_activity_video">VideoActivity</string>
+    <string name="cancel">Cancelar</string>
     <string name="example_news_title">Depois do protesto, manhã de limpeza e policiamento reforçado no Palácio Guanabara</string>
     <string name="example_published_at">10/09/13 10:13</string>
     <string name="example_tweet_title">Centro de Operações</string>

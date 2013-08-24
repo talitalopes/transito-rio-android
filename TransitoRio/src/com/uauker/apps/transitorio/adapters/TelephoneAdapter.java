@@ -3,24 +3,30 @@ package com.uauker.apps.transitorio.adapters;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.models.others.Telephone;
 
-public class TelephoneAdapter extends ArrayAdapter<Telephone> {
+public class TelephoneAdapter extends ArrayAdapter<Telephone> implements
+		OnClickListener {
 
 	private List<Telephone> datasource;
 	private LayoutInflater inflater;
 	private Activity ownerActivity;
 
-	public TelephoneAdapter(Context context, int layout, List<Telephone> telephones) {
+	public TelephoneAdapter(Context context, int layout,
+			List<Telephone> telephones) {
 		super(context, 0, telephones);
 		this.inflater = LayoutInflater.from(context);
 		this.datasource = telephones;
@@ -41,11 +47,10 @@ public class TelephoneAdapter extends ArrayAdapter<Telephone> {
 		rowView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO: Click to call
-				
+				createTelephoneDialog(telephone);
 			}
 		});
-		
+
 		return rowView;
 	}
 
@@ -56,6 +61,56 @@ public class TelephoneAdapter extends ArrayAdapter<Telephone> {
 
 	public Telephone getTelephone(int position) {
 		return this.datasource.get(position);
+	}
+
+	public void createTelephoneDialog(Telephone telephone) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(ownerActivity);
+
+		LayoutInflater inflater = ownerActivity.getLayoutInflater();
+
+		ViewGroup dialogLayout = (ViewGroup) inflater.inflate(
+				R.layout.dialog_telephone_buttons, null);
+		builder.setView(dialogLayout);
+		
+		TextView dialogTitle = (TextView) dialogLayout
+				.findViewById(R.id.dialog_telephone_buttons_title);
+		dialogTitle.setText(telephone.name);
+		
+		builder.setNegativeButton(
+				ownerActivity.getResources().getString(R.string.cancel),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+					}
+				});
+
+		final AlertDialog dialog = builder.create();
+
+		for (String tel : telephone.tels) {
+			Button buttonToCall = (Button) inflater.inflate(
+					R.layout.button_telephone_dialog, null);
+			buttonToCall.setText(tel);
+			buttonToCall.setOnClickListener(this);
+
+			dialogLayout.addView(buttonToCall, setLayoutParams());
+		}
+
+		dialog.show();
+	}
+
+	private LinearLayout.LayoutParams setLayoutParams() {
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT);
+		
+		layoutParams.setMargins(30, 0, 30, 5);
+		return layoutParams;
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO: click to call
+
 	}
 
 }
