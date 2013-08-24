@@ -91,7 +91,7 @@ public class TelephoneFragment extends SherlockFragment implements
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.menu_reload_and_call, menu);
+		inflater.inflate(R.menu.menu_config, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
