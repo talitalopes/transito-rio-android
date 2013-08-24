@@ -150,10 +150,14 @@ public class RodoviaFragment extends SherlockFragment implements
 		switch (item.getItemId()) {
 		case R.id.menu_refresh:
 			loadRodovias();
+			AnalyticsHelper.sendEvent(AnalyticsHelper.CATEGORY_RELOAD,
+					rodoviaTitle);
 			return true;
 
 		case R.id.menu_telephone:
 			calling();
+			AnalyticsHelper.sendEvent(AnalyticsHelper.CATEGORY_LIGAR,
+					rodoviaTitle);
 			return true;
 		case R.id.menu_settings:
 			Intent intent = new Intent(ownerActivity, SettingsActivity.class);
@@ -186,6 +190,7 @@ public class RodoviaFragment extends SherlockFragment implements
 	private void calling() {
 		String telephone = RodoviaHelper.findByTelephone(ownerActivity,
 				slugRodovia);
+
 		telephone = telephone.replace(" ", "");
 
 		Intent intent = new Intent(Intent.ACTION_CALL);

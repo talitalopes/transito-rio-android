@@ -53,7 +53,7 @@ public class TwitterFragment extends SherlockFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+
 		AnalyticsHelper.sendView(AnalyticsHelper.SCREEN_HOME);
 
 		final ActionBar ab = ((SherlockFragmentActivity) ownerActivity)
@@ -107,6 +107,8 @@ public class TwitterFragment extends SherlockFragment implements
 		switch (item.getItemId()) {
 		case R.id.menu_refresh:
 			loadTweets();
+			AnalyticsHelper.sendEvent(AnalyticsHelper.CATEGORY_RELOAD,
+					AnalyticsHelper.ACTION_RELOAD_HOME);
 			return true;
 		case R.id.menu_settings:
 			Intent intent = new Intent(ownerActivity, SettingsActivity.class);

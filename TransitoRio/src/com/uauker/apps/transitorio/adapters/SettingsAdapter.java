@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.uauker.apps.transitorio.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.uauker.apps.transitorio.R;
+import com.uauker.apps.transitorio.helpers.AnalyticsHelper;
 
 public class SettingsAdapter extends ArrayAdapter<String> {
 
@@ -121,6 +122,11 @@ public class SettingsAdapter extends ArrayAdapter<String> {
 		}
 
 		private void shareThisApp() {
+
+			AnalyticsHelper.sendEvent(
+					AnalyticsHelper.CATEGORY_MENU_CONFIGURACOES,
+					AnalyticsHelper.ACTION_COMPARTILHAR_APP);
+
 			Intent intent = new Intent(Intent.ACTION_SEND);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 			intent.setType("text/plain");
@@ -138,6 +144,11 @@ public class SettingsAdapter extends ArrayAdapter<String> {
 		}
 
 		private void reviewThisApp() {
+
+			AnalyticsHelper.sendEvent(
+					AnalyticsHelper.CATEGORY_MENU_CONFIGURACOES,
+					AnalyticsHelper.ACTION_AVALIAR);
+
 			final Uri uri = Uri.parse("market://details?id="
 					+ ownerActivity.getPackageName());
 			final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
@@ -146,6 +157,11 @@ public class SettingsAdapter extends ArrayAdapter<String> {
 		}
 
 		private void emailSupport() {
+
+			AnalyticsHelper.sendEvent(
+					AnalyticsHelper.CATEGORY_MENU_CONFIGURACOES,
+					AnalyticsHelper.ACTION_INFORMAR_PROBLEMA);
+
 			Intent intent = new Intent(Intent.ACTION_SENDTO);
 			intent.setType("message/rfc822");
 			intent.setData(Uri.parse("mailto:"
@@ -178,7 +194,8 @@ public class SettingsAdapter extends ArrayAdapter<String> {
 				text = String.format("%s \nVers‹o do App: %s", text,
 						pInfo.versionName);
 			} catch (Exception e) {
-				Log.e("Versao do App", "Nao foi possivel pegar a informacao da versao do app");
+				Log.e("Versao do App",
+						"Nao foi possivel pegar a informacao da versao do app");
 			}
 
 			text = String.format("%s\n\n\n\n\n\n\n\n\n\n\n\n\n", text);

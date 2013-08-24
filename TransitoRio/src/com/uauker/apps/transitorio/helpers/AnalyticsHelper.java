@@ -15,7 +15,7 @@ public class AnalyticsHelper {
 	private static Tracker tracker;
 
 	// Analytics tracker
-	public final static String SCREEN_SPLASH = "/inicio";
+	public final static String SCREEN_SPLASH = "/splash";
 	public final static String SCREEN_HOME = "/home";
 	public final static String SCREEN_PONTE = "/ponte-rio-niteroi";
 	public final static String SCREEN_VIA_LAGOS = "/via-lagos";
@@ -24,18 +24,16 @@ public class AnalyticsHelper {
 	public final static String SCREEN_CONFIG = "/configuracoes";
 
 	// Analytics tracker category
-	public final static String CATEGORY_MENU_NAVEGACAO = "Menu navegacao";
-	public final static String CATEGORY_MENU_CONFIGURACOES = "Menu configuracoes";
+	public final static String CATEGORY_MENU_CONFIGURACOES = "Tela de configuracoes";
 	public final static String CATEGORY_COMPARTILHAR = "Compartilhar";
-	public final static String CATEGORY_LIGAR = "Telefone";
+	public final static String CATEGORY_LIGAR = "Botao de ligar";
+	public final static String CATEGORY_RELOAD = "Botao de atualizar";
 
 	// Analytics tracker action
-	public final static String ACTION_EXIBE_MENU_NAVEGACAO = "Exibe menu de navegacao";
 	public final static String ACTION_INFORMAR_PROBLEMA = "Informar problema";
 	public final static String ACTION_COMPARTILHAR_APP = "Compartilhar app.";
 	public final static String ACTION_AVALIAR = "Avaliar aplicativo";
-	public final static String ACTION_NAVEGACAO_LATERAL = "Navegacao lateral";
-	public final static String ACTION_LIGAR = "Ligar";
+	public final static String ACTION_RELOAD_HOME = "Twitter da home";
 
 	public static void sendView(String appScreen) {
 		if (appScreen != null && appScreen != "") {

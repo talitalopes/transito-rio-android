@@ -18,10 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.uauker.apps.transitorio.R;
+import com.uauker.apps.transitorio.helpers.AnalyticsHelper;
 import com.uauker.apps.transitorio.models.others.Telephone;
 
-public class TelephoneAdapter extends ArrayAdapter<Telephone> implements
-		OnClickListener {
+public class TelephoneAdapter extends ArrayAdapter<Telephone> {
 
 	private List<Telephone> datasource;
 	private LayoutInflater inflater;
@@ -65,7 +65,7 @@ public class TelephoneAdapter extends ArrayAdapter<Telephone> implements
 		return this.datasource.get(position);
 	}
 
-	public void createTelephoneDialog(Telephone telephone) {
+	public void createTelephoneDialog(final Telephone telephone) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(ownerActivity);
 
 		LayoutInflater inflater = ownerActivity.getLayoutInflater();
@@ -88,12 +88,23 @@ public class TelephoneAdapter extends ArrayAdapter<Telephone> implements
 
 		final AlertDialog dialog = builder.create();
 
-		for (String tel : telephone.tels) {
+		for (final String tel : telephone.tels) {
 			Button buttonToCall = (Button) inflater.inflate(
 					R.layout.button_telephone_dialog, null);
 			buttonToCall.setText(tel);
-			buttonToCall.setTag(tel);
-			buttonToCall.setOnClickListener(this);
+			;
+			buttonToCall.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					AnalyticsHelper.sendEvent(AnalyticsHelper.CATEGORY_LIGAR,
+							telephone.name);
+
+					Intent callIntent = new Intent(Intent.ACTION_CALL);
+					callIntent.setData(Uri.parse("tel:" + tel));
+					ownerActivity.startActivity(callIntent);
+				}
+			});
 
 			dialogLayout.addView(buttonToCall, setLayoutParams());
 		}
@@ -108,14 +119,6 @@ public class TelephoneAdapter extends ArrayAdapter<Telephone> implements
 
 		layoutParams.setMargins(30, 0, 30, 5);
 		return layoutParams;
-	}
-
-	@Override
-	public void onClick(View v) {
-		String tel = (String) v.getTag();
-		Intent callIntent = new Intent(Intent.ACTION_CALL);
-		callIntent.setData(Uri.parse("tel:" + tel));
-		ownerActivity.startActivity(callIntent);
 	}
 
 }
