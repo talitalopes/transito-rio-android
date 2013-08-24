@@ -16,6 +16,8 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme"></style>
 
-    <style name="AppThemeWithMenu" parent="AppBaseTheme"></style>
+    <style name="AppThemeWithMenu" parent="AppBaseTheme">
+        <item name="android:homeAsUpIndicator">@drawable/ic_menu</item>
+    </style>
 
 </resources>
