@@ -10,7 +10,6 @@
 
     <style name="Custom.ActionBar" parent="Widget.Sherlock.ActionBar">
         <item name="background">@color/background_splash_transparent</item>
-        <item name="android:background">@color/background_splash_transparent</item>
     </style>
 
     <!-- Application theme. -->
