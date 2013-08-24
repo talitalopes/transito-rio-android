@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -20,6 +21,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.analytics.tracking.android.Log;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnCloseListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.uauker.apps.transitorio.R;
@@ -45,6 +47,8 @@ public class TwitterFragment extends SherlockFragment implements
 	View emptyView;
 
 	List<Tweet> tweets = new ArrayList<Tweet>();
+
+	int page = 1;
 
 	private Activity ownerActivity;
 
@@ -83,6 +87,18 @@ public class TwitterFragment extends SherlockFragment implements
 
 		this.twitterListView = (ListView) contentView
 				.findViewById(R.id.twitter_listview);
+
+		Button btnLoadMore = new Button(ownerActivity);
+		btnLoadMore.setText("Load More");
+		btnLoadMore.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				page++;
+
+				loadTweets();
+			}
+		});
+
+		this.twitterListView.addFooterView(btnLoadMore);
 
 		this.emptyView = contentView
 				.findViewById(R.id.twitter_list_empty_message);
@@ -137,6 +153,8 @@ public class TwitterFragment extends SherlockFragment implements
 
 	@Override
 	public void tryAgain() {
+		page = 1;
+
 		loadTweets();
 	}
 
@@ -147,6 +165,8 @@ public class TwitterFragment extends SherlockFragment implements
 
 	class TwitterAsyncTask extends AsyncTask<Void, Void, List<Tweet>> {
 
+		int lastTweetsSize = 0;
+		
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -162,8 +182,20 @@ public class TwitterFragment extends SherlockFragment implements
 			try {
 				TwitterService twitter = new TwitterService();
 
-				tweets = twitter.getTweetsFromUserList("uauker", "transito-rj");
+				long lastTweetID = -1;
+				
+				if (page == 1) {
+					tweets.clear();
+				}
+				
+				if (tweets.size() > 0) {
+					lastTweetID = tweets.get(tweets.size() - 1).id;
+					lastTweetsSize = tweets.size() - 1;
+				}
+				
+				tweets.addAll(twitter.getTweetsFromUserList("uauker", "transito-rj", page, lastTweetID));
 			} catch (TwitterServiceException e) {
+				Log.d("Error no TwitterServiceException: " + e.getMessage());
 			}
 
 			return tweets;
@@ -185,6 +217,7 @@ public class TwitterFragment extends SherlockFragment implements
 			TwitterAdapter twitterAdapter = new TwitterAdapter(ownerActivity,
 					R.layout.adapter_twitter, tweets);
 			twitterListView.setAdapter(twitterAdapter);
+			twitterListView.setSelection(lastTweetsSize);
 
 			TwitterFragment.this.loadingViewStub.setVisibility(View.GONE);
 			TwitterFragment.this.internetFailureViewStub
