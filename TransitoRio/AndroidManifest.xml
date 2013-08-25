@@ -47,7 +47,8 @@
         </activity>
         <activity
             android:name="com.uauker.apps.transitorio.activities.TweetsFromUserActivity"
-            android:label="@string/title_activity_tweets_from_user" >
+            android:label="@string/title_activity_tweets_from_user"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
