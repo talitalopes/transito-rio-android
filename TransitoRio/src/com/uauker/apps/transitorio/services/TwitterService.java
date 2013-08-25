@@ -53,7 +53,7 @@ public class TwitterService {
 			UserList list;
 
 			list = ((ListsResources) twitter).showUserList(userName, userList);
-			
+
 			Paging paging = new Paging(page, limitPage);
 
 			if (maxID != -1) {
@@ -69,7 +69,7 @@ public class TwitterService {
 
 		} catch (TwitterException e) {
 			throw new TwitterServiceException(
-					"Error whe try to recover tweets from user list - "
+					"Error when try to recover tweets from user list - "
 							+ userList, e);
 		}
 
@@ -94,11 +94,59 @@ public class TwitterService {
 			}
 		} catch (TwitterException e) {
 			throw new TwitterServiceException(
-					"Error whe try to recover users from user list - "
+					"Error when try to recover users from user list - "
 							+ userList, e);
 		}
 
 		return users;
+	}
+
+	public List<Tweet> getTweetsFromUser(String userName)
+			throws TwitterServiceException {
+
+		return getTweetsFromUser(userName, 1, DEFAULT_MAX_PER_PAGE_RESULTS);
+	}
+
+	public List<Tweet> getTweetsFromUser(String userName, int page,
+			int limitPage) throws TwitterServiceException {
+
+		return getTweetsFromUser(userName, page, limitPage, -1);
+	}
+
+	public List<Tweet> getTweetsFromUser(String userName, int page, long maxID)
+			throws TwitterServiceException {
+
+		return getTweetsFromUser(userName, page, DEFAULT_MAX_PER_PAGE_RESULTS,
+				maxID);
+	}
+
+	public List<Tweet> getTweetsFromUser(String userName, int page,
+			int limitPage, long maxID) throws TwitterServiceException {
+
+		List<Tweet> tweets = new ArrayList<Tweet>();
+
+		try {
+			Twitter twitter = buildTwitterAPI();
+
+			Paging paging = new Paging(page, limitPage);
+
+			if (maxID != -1) {
+				paging = new Paging(page, limitPage, 1, maxID);
+			}
+
+			ResponseList<Status> userTimeline = twitter.getUserTimeline(
+					userName, paging);
+
+			for (Status status : userTimeline) {
+				tweets.add(new Tweet(status));
+			}
+		} catch (TwitterException e) {
+			throw new TwitterServiceException(
+					"Error when try to recover tweets from user - " + userName,
+					e);
+		}
+
+		return tweets;
 	}
 
 	private Twitter buildTwitterAPI() {
