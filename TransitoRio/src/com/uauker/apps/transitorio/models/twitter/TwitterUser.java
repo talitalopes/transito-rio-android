@@ -11,12 +11,14 @@ public class TwitterUser implements Serializable {
 	 */
 	private static final long serialVersionUID = 6800286239770930940L;
 	
+	public long id;
 	public String username;
 	public String screenName;
 	public String profileImageURL;
 	public String description;
 
 	public TwitterUser(User user) {
+		this.id = user.getId();
 		this.username = user.getName();
 		this.screenName = user.getScreenName();
 		this.profileImageURL = user.getProfileImageURL();
