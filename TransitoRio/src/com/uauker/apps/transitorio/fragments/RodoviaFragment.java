@@ -48,6 +48,8 @@ import com.uauker.apps.transitorio.models.ccr.Occurrence;
 public class RodoviaFragment extends SherlockFragment implements
 		OnClickToTryAgain, OnOpenListener, OnCloseListener {
 
+	public static final int CACHE_TIME = 5 * 60;
+	
 	ImageView shadowView;
 
 	ListView occurrencesListView;
@@ -264,7 +266,7 @@ public class RodoviaFragment extends SherlockFragment implements
 				}
 				
 				if (!isCached) {
-					cache.put(url, result, 5 * 60);
+					cache.put(url, result, CACHE_TIME);
 				}
 
 				RodoviaFragment.this.loadingViewStub.setVisibility(View.GONE);
