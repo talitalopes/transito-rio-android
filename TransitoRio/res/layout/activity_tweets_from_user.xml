@@ -5,18 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".TweetsFromUserActivity" >
 
-    <include
+    <ViewStub
         android:id="@+id/twitter_loading"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        layout="@layout/loading"
         android:visibility="gone" />
 
-    <include
+    <ViewStub
         android:id="@+id/twitter_internet_failure"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        layout="@layout/internet_failure"
         android:visibility="gone" />
 
     <ListView

@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,7 +55,6 @@ public class UsersAdapter extends ArrayAdapter<TwitterUser> {
 
 		TextView TwitterUserText = (TextView) rowView
 				.findViewById(R.id.adapter_twitter_text);
-		TwitterUserText.setMovementMethod(LinkMovementMethod.getInstance());
 		TwitterUserText.setText(
 				TweetHelper.colored(ownerActivity, twitterUser.description),
 				BufferType.SPANNABLE);

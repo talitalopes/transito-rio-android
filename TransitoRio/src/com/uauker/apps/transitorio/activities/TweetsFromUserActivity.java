@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.inject.InjectView;
-import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockListActivity;
 import com.google.analytics.tracking.android.Log;
 import com.uauker.apps.transitorio.R;
@@ -43,8 +43,6 @@ public class TweetsFromUserActivity extends RoboSherlockListActivity implements
 
 	int page = 1;
 
-	private Activity ownerActivity;
-
 	private TwitterAsyncTask task;
 
 	@Override
@@ -54,11 +52,20 @@ public class TweetsFromUserActivity extends RoboSherlockListActivity implements
 
 		AnalyticsHelper.sendView(AnalyticsHelper.SCREEN_HOME);
 
-		final ActionBar ab = ((SherlockFragmentActivity) ownerActivity)
-				.getSupportActionBar();
+		this.twitterUser = (TwitterUser) getIntent().getExtras()
+				.getSerializable(SELECTED_TWITTER_USER);
+
+		final ActionBar ab = this.getSupportActionBar();
 
 		ab.setTitle(this.twitterUser.username);
-		ab.setHomeButtonEnabled(true);
+		ab.setDisplayHomeAsUpEnabled(true);
+		ab.setDisplayUseLogoEnabled(true);
+		ab.setDisplayShowTitleEnabled(true);
+
+		this.loadingViewStub.setLayoutResource(R.layout.loading);
+
+		this.internetFailureViewStub
+				.setLayoutResource(R.layout.internet_failure);
 
 		TryAgainHelper tryAgainView = (TryAgainHelper) this.internetFailureViewStub
 				.inflate();
@@ -79,6 +86,26 @@ public class TweetsFromUserActivity extends RoboSherlockListActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.menu_reload, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			super.onBackPressed();
+			return true;
+		case R.id.menu_refresh:
+			loadTweets();
+			AnalyticsHelper.sendEvent(AnalyticsHelper.CATEGORY_RELOAD,
+					AnalyticsHelper.ACTION_RELOAD_HOME);
+			return true;
+		case R.id.menu_settings:
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -137,8 +164,9 @@ public class TweetsFromUserActivity extends RoboSherlockListActivity implements
 				return;
 			}
 
-			TwitterAdapter twitterAdapter = new TwitterAdapter(ownerActivity,
-					R.layout.adapter_twitter, tweets);
+			TwitterAdapter twitterAdapter = new TwitterAdapter(
+					TweetsFromUserActivity.this, R.layout.adapter_twitter,
+					tweets);
 			setListAdapter(twitterAdapter);
 			setSelection(lastTweetsSize);
 
