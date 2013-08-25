@@ -18,6 +18,7 @@ import com.google.analytics.tracking.android.Log;
 import com.uauker.apps.transitorio.R;
 import com.uauker.apps.transitorio.adapters.TwitterAdapter;
 import com.uauker.apps.transitorio.helpers.AnalyticsHelper;
+import com.uauker.apps.transitorio.helpers.BannerHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
 import com.uauker.apps.transitorio.models.twitter.Tweet;
@@ -73,8 +74,10 @@ public class TweetsFromUserActivity extends RoboSherlockListActivity implements
 
 		loadTweets();
 
-		// TODO: Implementar banner na tela de Tweets
-		// BannerHelper.setUpAdmob(contentView);
+		if (TweetsFromUserActivity.this.findViewById(android.R.id.content) != null) {
+			BannerHelper.setUpAdmob(TweetsFromUserActivity.this
+					.findViewById(android.R.id.content));
+		}
 	}
 
 	private void loadTweets() {
