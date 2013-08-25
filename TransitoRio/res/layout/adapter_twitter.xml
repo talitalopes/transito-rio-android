@@ -41,7 +41,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:gravity="right"
-                android:text="@string/example_tweet_published_at"
                 android:textColor="@color/top_text_second"
                 android:textStyle="bold" />
         </RelativeLayout>

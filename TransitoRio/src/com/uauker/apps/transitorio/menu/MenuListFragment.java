@@ -21,13 +21,14 @@ import com.uauker.apps.transitorio.activities.MainActivity;
 import com.uauker.apps.transitorio.fragments.RodoviaFragment;
 import com.uauker.apps.transitorio.fragments.TelephoneFragment;
 import com.uauker.apps.transitorio.fragments.TwitterFragment;
+import com.uauker.apps.transitorio.fragments.UsersFragment;
 import com.uauker.apps.transitorio.helpers.SharedPreferencesHelper;
 
 @SuppressLint("DefaultLocale")
 public class MenuListFragment extends ListFragment {
 
 	public enum Source {
-		TRANSITO, PONTE, NOVADUTRA, RODOVIADOSLAGOS, TELEFONESUTEIS
+		TRANSITO, PONTE, USERS, NOVADUTRA, RODOVIADOSLAGOS, TELEFONESUTEIS
 	};
 
 	private Activity ownerActivity;
@@ -145,8 +146,8 @@ public class MenuListFragment extends ListFragment {
 
 					Fragment newContent = null;
 
-					Source itemRodovia = Source.values()[position];
-					String slug = itemRodovia.name().toLowerCase();
+					Source sourceItem = Source.values()[position];
+					String slug = sourceItem.name().toLowerCase();
 
 					sharedPreferences.setString(SELECTED_MENU_ROW,
 							String.valueOf(position));
@@ -156,11 +157,15 @@ public class MenuListFragment extends ListFragment {
 
 					newContent = new RodoviaFragment(slug, rodoviaColor);
 
-					if (itemRodovia == Source.TRANSITO) {
+					if (sourceItem == Source.TRANSITO) {
 						newContent = new TwitterFragment();
 					}
-
-					if (itemRodovia == Source.TELEFONESUTEIS) {
+					
+					if (sourceItem == Source.USERS) {
+						newContent = new UsersFragment();
+					}
+					
+					if (sourceItem == Source.TELEFONESUTEIS) {
 						newContent = new TelephoneFragment();
 					}
 

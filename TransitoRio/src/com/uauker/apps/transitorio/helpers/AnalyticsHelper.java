@@ -18,6 +18,7 @@ public class AnalyticsHelper {
 	public final static String SCREEN_SPLASH = "/splash";
 	public final static String SCREEN_HOME = "/home";
 	public final static String SCREEN_PONTE = "/ponte-rio-niteroi";
+	public final static String SCREEN_CONTAS_DO_TWITTER = "/contas_do_twitter";
 	public final static String SCREEN_VIA_LAGOS = "/via-lagos";
 	public final static String SCREEN_NOVA_DUTRA = "/nova-dutra";
 	public final static String SCREEN_TELEPHONES = "/telephones";
