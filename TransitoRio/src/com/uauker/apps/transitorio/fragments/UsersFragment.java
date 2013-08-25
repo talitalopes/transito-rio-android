@@ -88,18 +88,6 @@ public class UsersFragment extends SherlockFragment implements
 		this.twitterUsersListView = (ListView) contentView
 				.findViewById(R.id.twitter_listview);
 
-		// Button btnLoadMore = new Button(ownerActivity);
-		// btnLoadMore.setText("Load More");
-		// btnLoadMore.setOnClickListener(new Button.OnClickListener() {
-		// public void onClick(View v) {
-		// page++;
-		//
-		// loadTweets();
-		// }
-		// });
-		//
-		// this.twitterListView.addFooterView(btnLoadMore);
-
 		this.emptyView = contentView
 				.findViewById(R.id.twitter_list_empty_message);
 
@@ -166,17 +154,18 @@ public class UsersFragment extends SherlockFragment implements
 		protected void onPreExecute() {
 			super.onPreExecute();
 
-			UsersFragment.this.loadingViewStub.setVisibility(View.VISIBLE);
-			UsersFragment.this.internetFailureViewStub
-					.setVisibility(View.GONE);
-			UsersFragment.this.twitterUsersListView.setVisibility(View.GONE);
+			loadingViewStub.setVisibility(View.VISIBLE);
+			internetFailureViewStub.setVisibility(View.GONE);
+			twitterUsersListView.setVisibility(View.GONE);
 		}
 
 		@Override
 		protected List<TwitterUser> doInBackground(Void... params) {
 			try {
 				TwitterService twitter = new TwitterService();
-				users.addAll(twitter.getUsersFromUserList(ConfigHelper.TWITTER_USERNAME, ConfigHelper.TWITTER_LISTNAME));
+				users.addAll(twitter.getUsersFromUserList(
+						ConfigHelper.TWITTER_USERNAME,
+						ConfigHelper.TWITTER_LISTNAME));
 			} catch (TwitterServiceException e) {
 				Log.d("Error no TwitterServiceException: " + e.getMessage());
 			}
@@ -189,10 +178,9 @@ public class UsersFragment extends SherlockFragment implements
 			super.onPostExecute(result);
 
 			if (result.size() < 1) {
-				UsersFragment.this.loadingViewStub.setVisibility(View.GONE);
-				UsersFragment.this.internetFailureViewStub
-						.setVisibility(View.VISIBLE);
-				UsersFragment.this.twitterUsersListView.setVisibility(View.GONE);
+				loadingViewStub.setVisibility(View.GONE);
+				internetFailureViewStub.setVisibility(View.VISIBLE);
+				twitterUsersListView.setVisibility(View.GONE);
 
 				return;
 			}
@@ -202,10 +190,9 @@ public class UsersFragment extends SherlockFragment implements
 			twitterUsersListView.setAdapter(userAdapter);
 			twitterUsersListView.setSelection(lastTweetsSize);
 
-			UsersFragment.this.loadingViewStub.setVisibility(View.GONE);
-			UsersFragment.this.internetFailureViewStub
-					.setVisibility(View.GONE);
-			UsersFragment.this.twitterUsersListView.setVisibility(View.VISIBLE);
+			loadingViewStub.setVisibility(View.GONE);
+			internetFailureViewStub.setVisibility(View.GONE);
+			twitterUsersListView.setVisibility(View.VISIBLE);
 		}
 
 	}

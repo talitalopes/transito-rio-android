@@ -55,5 +55,7 @@
     <string name="ponte_tel">0800 022 9333</string>
     <string name="novadutra_tel">0800 017 3536</string>
     <string name="rodoviadoslagos_tel">0800 702 0124</string>
+    <string name="title_activity_tweets_from_user">TweetsFromUserActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
