@@ -28,6 +28,7 @@ import com.uauker.apps.transitorio.activities.SettingsActivity;
 import com.uauker.apps.transitorio.adapters.TwitterAdapter;
 import com.uauker.apps.transitorio.helpers.AnalyticsHelper;
 import com.uauker.apps.transitorio.helpers.BannerHelper;
+import com.uauker.apps.transitorio.helpers.ConfigHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper;
 import com.uauker.apps.transitorio.helpers.TryAgainHelper.OnClickToTryAgain;
 import com.uauker.apps.transitorio.models.twitter.Tweet;
@@ -87,17 +88,17 @@ public class TwitterFragment extends SherlockFragment implements
 		this.twitterListView = (ListView) contentView
 				.findViewById(R.id.twitter_listview);
 
-//		Button btnLoadMore = new Button(ownerActivity);
-//		btnLoadMore.setText("Load More");
-//		btnLoadMore.setOnClickListener(new Button.OnClickListener() {
-//			public void onClick(View v) {
-//				page++;
-//
-//				loadTweets();
-//			}
-//		});
-//
-//		this.twitterListView.addFooterView(btnLoadMore);
+		// Button btnLoadMore = new Button(ownerActivity);
+		// btnLoadMore.setText("Load More");
+		// btnLoadMore.setOnClickListener(new Button.OnClickListener() {
+		// public void onClick(View v) {
+		// page++;
+		//
+		// loadTweets();
+		// }
+		// });
+		//
+		// this.twitterListView.addFooterView(btnLoadMore);
 
 		this.emptyView = contentView
 				.findViewById(R.id.twitter_list_empty_message);
@@ -165,7 +166,7 @@ public class TwitterFragment extends SherlockFragment implements
 	class TwitterAsyncTask extends AsyncTask<Void, Void, List<Tweet>> {
 
 		int lastTweetsSize = 0;
-		
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -182,17 +183,19 @@ public class TwitterFragment extends SherlockFragment implements
 				TwitterService twitter = new TwitterService();
 
 				long lastTweetID = -1;
-				
+
 				if (page == 1) {
 					tweets.clear();
 				}
-				
+
 				if (tweets.size() > 0) {
 					lastTweetID = tweets.get(tweets.size() - 1).id;
 					lastTweetsSize = tweets.size() - 1;
 				}
-				
-				tweets.addAll(twitter.getTweetsFromUserList("uauker", "transito-rj", page, lastTweetID));
+
+				tweets.addAll(twitter.getTweetsFromUserList(
+						ConfigHelper.TWITTER_USERNAME,
+						ConfigHelper.TWITTER_LISTNAME, page, lastTweetID));
 			} catch (TwitterServiceException e) {
 				Log.d("Error no TwitterServiceException: " + e.getMessage());
 			}

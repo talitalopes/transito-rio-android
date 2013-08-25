@@ -6,6 +6,9 @@ public class ConfigHelper {
 	public final static boolean isProduction = false;
 
 	public final static String CHARSET_DEFAULT = "UTF-8";	
+
+	public final static String TWITTER_USERNAME = "uauker";
+	public final static String TWITTER_LISTNAME = "transito-rj";
 	
 	public final static String TWITTER_CONSUMER_KEY = "hlycH46ulhO4VSox1UnKw";
 	public final static String TWITTER_CONSUMER_SECRET = "8DS8jaVCAV55h4sqGBc9IrHtz58lwldiHaTaJpnsU";
