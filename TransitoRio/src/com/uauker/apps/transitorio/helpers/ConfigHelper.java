@@ -3,7 +3,7 @@ package com.uauker.apps.transitorio.helpers;
 
 public class ConfigHelper {
 
-	public final static boolean isProduction = true;
+	public final static boolean isProduction = false;
 
 	public final static String CHARSET_DEFAULT = "UTF-8";	
 	
