@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.afinal.simplecache.ACache;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -58,6 +60,8 @@ public class RodoviaFragment extends SherlockFragment implements
 
 	AsyncHttpClient client = new AsyncHttpClient();
 
+	ACache cache;
+
 	private Activity ownerActivity;
 
 	public String slugRodovia;
@@ -80,6 +84,7 @@ public class RodoviaFragment extends SherlockFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		this.cache = ACache.get(ownerActivity);
 
 		rodoviaTitle = RodoviaHelper.findByName(ownerActivity, slugRodovia);
 
@@ -200,11 +205,23 @@ public class RodoviaFragment extends SherlockFragment implements
 
 	private void loadRodovias() {
 		String url = ConfigHelper.urlFormat(slugRodovia);
+		String cacheContent = cache.getAsString(url);
 
-		client.get(url, new SectionAsyncTask());
+		SectionAsyncTask sectionAsyncTask = new SectionAsyncTask();
+		sectionAsyncTask.url = url;
+		
+		if (cacheContent == null) {
+			client.get(url, sectionAsyncTask);
+		} else {
+			sectionAsyncTask.isCached = true;
+			sectionAsyncTask.onSuccess(cacheContent);
+		}
 	}
 
 	class SectionAsyncTask extends AsyncHttpResponseHandler {
+
+		public String url;
+		public boolean isCached = false;
 
 		@Override
 		public void onStart() {
@@ -244,6 +261,10 @@ public class RodoviaFragment extends SherlockFragment implements
 					Occurrence occurrence = gson.fromJson(occurrenceJson,
 							Occurrence.class);
 					occurrences.add(occurrence);
+				}
+				
+				if (!isCached) {
+					cache.put(url, result, 5 * 60);
 				}
 
 				RodoviaFragment.this.loadingViewStub.setVisibility(View.GONE);
