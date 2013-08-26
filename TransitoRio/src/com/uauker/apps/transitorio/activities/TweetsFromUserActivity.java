@@ -127,7 +127,6 @@ public class TweetsFromUserActivity extends RoboSherlockListActivity implements
 
 			loadingViewStub.setVisibility(View.VISIBLE);
 			internetFailureViewStub.setVisibility(View.GONE);
-			setVisible(false);
 		}
 
 		@Override
@@ -162,7 +161,6 @@ public class TweetsFromUserActivity extends RoboSherlockListActivity implements
 			if (result.size() < 1) {
 				loadingViewStub.setVisibility(View.GONE);
 				internetFailureViewStub.setVisibility(View.VISIBLE);
-				setVisible(false);
 
 				return;
 			}
@@ -175,7 +173,6 @@ public class TweetsFromUserActivity extends RoboSherlockListActivity implements
 
 			loadingViewStub.setVisibility(View.GONE);
 			internetFailureViewStub.setVisibility(View.GONE);
-			setVisible(true);
 		}
 
 	}
